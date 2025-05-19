@@ -25,9 +25,34 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
-            ],
-            "scripts": []
+              "src/styles.css",
+              "src/assets/libs/assets/animate.css/animate.css",
+              "src/assets/libs/assets/font-awesome/css/font-awesome.min.css",
+              "src/assets/libs/assets/simple-line-icons/css/simple-line-icons.css",
+              "src/assets/libs/jquery/bootstrap/dist/css/bootstrap.css",
+              "src/assets/css/tokenfield-typeahead.css",
+              "src/assets/css/bootstrap-tokenfield.css",
+              "src/assets/css/app.min.css",
+              "src/assets/css/dropify.css"
+          ],
+          "scripts": [
+              "src/assets/js/app.min.js",
+              "src/assets/js/jquery.easypiechart.fill.js",
+              "src/assets/js/jquery.sparkline.retina.js",
+              "src/assets/js/jquery.flot.js",
+              "src/assets/js/jquery.flot.pie.js",
+              "src/assets/js/jquery.flot.resize.js",
+              "src/assets/js/jquery.flot.tooltip.min.js",
+              "src/assets/js/jquery.flot.orderBars.js",
+              "src/assets/js/jquery.flot.spline.min.js",
+              "node_modules/bootstrap-notify/bootstrap-notify.js",
+              "src/assets/js/bootstrap-tokenfield.js",
+              "src/assets/js/dropify.min.js",
+              "src/assets/js/imagesloaded.pkgd.min.js",
+              "src/assets/js/anime.min.js",
+              "src/assets/js/main.js",
+              "src/assets/js/default.js"
+          ]
           },
           "configurations": {
             "production": {
