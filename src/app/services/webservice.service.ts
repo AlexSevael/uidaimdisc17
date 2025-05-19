@@ -1,10 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
-import { Observable, Subject, of } from 'rxjs';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/finally';
-import 'rxjs/Rx';
 import { Router } from '@angular/router';
 declare var $:any;
 
@@ -99,6 +95,29 @@ export class WebserviceService {
             encodedString = encodedString.substring(6);
             var decodedString = atob(encodedString);
             return JSON.parse(decodedString);
+        }
+    }
+    /**
+     * method
+     */
+    public method(url:any, data:any, method:any):any{
+        if (method === 'post') {
+            const headers = new HttpHeaders({
+                'Authorization': this.token,
+                'Content-Type': 'application/x-www-form-urlencoded'
+              });
+            return this.http.post(url, data, {headers:headers});    
+        }
+    }
+    /**
+     * NoAuth
+     */
+    public methodNoAuth(url:any, data:any, method:any):any {
+        if (method === 'postjson') {
+            const headers = new HttpHeaders({
+                'Content-Type': 'application/json'
+              });
+            return this.http.post(url, data, {headers:headers});    
         }
     }
 }

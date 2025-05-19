@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/finally';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormControl, FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
 declare var $: any;
