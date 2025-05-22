@@ -1,0 +1,877 @@
+<div class="container-fluid">
+  <div class="row" *ngIf="vaveForm.value.vevaformid != null && AuthGuard.session().roleid != 4">
+    <div class="col-md-10">
+      <h2 class="newhead">{{vaveForm.value.vevaformid}}</h2>
+    </div>
+    <div class="col-md-2 text-right">
+      <button class="new_btn" type="button" style="margin: 0;" (click)="back()">Back</button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12" style="overflow-x: auto;
+    height: 65px;">
+      <ng-container *ngIf="first_copy.length > 0 && AuthGuard.session().roleid != 4">
+        <ng-container *ngFor="let data of StatusTracker;let i=index">
+          <th class="th" *ngIf="data.value != -1">
+            <label class="container2">
+              <input type="checkbox" checked="checked" disabled *ngIf="data?.value == 1">
+              <input type="checkbox" disabled *ngIf="dataa?.value == 0">
+              <span class="dot1 col-xs-12" *ngIf="statuslength != i+1"></span>
+              <span class="checkmark"></span>
+            </label>
+            <p class="p" title="{{data.status}}">{{data?.status}}</p>
+          </th>
+        </ng-container>
+      </ng-container>
+      <ng-container *ngIf="first_copy.length == 0">
+        <h2 class="newhead" style="display: flex;">VAVE Request</h2>
+      </ng-container>
+      <ng-container *ngIf="AuthGuard.session().roleid == 4 && vaveForm.value.vevaformid != null">
+        <h2 class="newhead pt-3">{{vaveForm.value.vevaformid}}</h2>
+      </ng-container>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div [formGroup]="vaveForm">
+        <div class="cards mt-2">
+          <div class="row">
+            <div class="col-md-4">
+              <div class="input-container">
+                <input formControlName="partno"
+                  [ngClass]="{'is-invalid': this.getdata.isInvalid(this.vaveForm,'partno')}" type="text" id="partnumber"
+                  autocomplete="off" class="input-field" required>
+                <label for="partnumber" class="input-label">Part Number <span class="text-danger">*</span></label>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="input-container">
+                <input formControlName="partdesc"
+                  [ngClass]="{'is-invalid': this.getdata.isInvalid(this.vaveForm,'partdesc')}" type="text" id="partdes"
+                  autocomplete="off" class="input-field" required>
+                <label for="partdes" class="input-label">Part Description <span class="text-danger">*</span></label>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="input-container">
+                <input formControlName="childpartno" type="text" id="child_part" autocomplete="off" class="input-field">
+                <label for="child_part" class="input-label">Child Part Number</label>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="input-container">
+                <input formControlName="childpartdesc" type="text" id="child_part_des" autocomplete="off"
+                  class="input-field">
+                <label for="child_part_des" class="input-label">Child Part Description</label>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="input-container">
+                <input type="text" id="suppliername" formControlName="suppname" autocomplete="off" class="input-field"
+                  disabled>
+                <label for="suppliername" class="input-label">Supplier Name</label>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="input-container">
+                <input type="text" id="supplier_code" formControlName="suppcode" autocomplete="off" class="input-field"
+                  disabled>
+                <label for="supplier_code" class="input-label">Supplier Code</label>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="input-container">
+                <input formControlName="appmodel"
+                  [ngClass]="{'is-invalid': this.getdata.isInvalid(this.vaveForm,'appmodel')}" type="text"
+                  id="applicable_modal" autocomplete="off" class="input-field" required>
+                <label for="applicable_modal" class="input-label">Applicable Model <span
+                    class="text-danger">*</span></label>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="input-container">
+                <input type="text" class="input-field" colls="4" autocomplete="off" id="snshoortadd"
+                  formControlName="buyername" (input)="buyeruser($event.target.value)" list="smshortidadd"
+                  name="smshortidadd" #smshortids
+                  [ngClass]="{'is-invalid': this.getdata.isInvalid(this.vaveForm,'buyerid')}"
+                  formControlName="buyername">
+                <label for="snshoortadd" class="input-label">Buyer Email Id <span class="text-danger">*</span></label>
+                <datalist id="smshortidadd">
+                  <ng-container *ngFor="let list of smshortidlist ">
+                    <option value={{list}}></option>
+                  </ng-container>
+                </datalist>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-2 pt-1" style="position: relative;">
+              <ng-container *ngIf="pptfilename == '' || isPptUploaded == 0">
+                <!-- <div class="not_click" *ngIf="!show_editable"></div> -->
+                <label for="ppt_upload_attach" class="file_upload text-center" style="margin: 0;">
+                  <img style="width: 50px" src="assets/img/doc_upload.gif" (change)="choose_file($event)"
+                    class="doc_upload" draggable="false" alt="">
+                </label>
+                <input accept=".pptx" type="file" id="ppt_upload_attach" #ppt_upload_attach style="display: none"
+                  (change)="ppt_choose_file($event)">
+                <p tooltip="{{ppt_upload_filename}}" class="input-label mt-1 filename_textflow"
+                  style="position: relative;">{{ppt_upload_filename != '' ? ppt_upload_filename : 'Upload PPT'}} <span
+                    *ngIf="ppt_upload_filename == ''" class="text-danger" id="ppt_star">*</span></p>
+                <p style="margin: 0;text-align: center;" *ngIf="vaveForm.value.vevaformid == null || show_editable"><a
+                    href="assets/ppt/Template.pptx" class="padtop" style="cursor:pointer">Download Template &nbsp;&nbsp;
+                    <i class="fa fa-cloud-download" download style="font-size: 16px;color: #026d9d;"></i></a></p>
+                <img style="top: 0;right: 10px;" tooltip="Delete" *ngIf="ppt_upload_filename != ''" (click)="clear(1)"
+                  src="assets/img/trash-bin.gif" class="view_upload" alt="">
+              </ng-container>
+              <ng-container *ngIf="pptfilename != '' && isPptUploaded == 1">
+                <!-- <div class="not_click"></div> -->
+                <label class="file_upload text-center" style="margin: 0;" (click)="ppt_download_files()">
+                  <img style="width: 50px" src="assets/img/doc_download.gif" class="doc_upload" draggable="false"
+                    alt="">
+                </label>
+                <label class="input-label mt-1" style="margin: 0;">{{pptfilename}}</label>
+                <img style="top: 0;right: 10px;" *ngIf="show_editable" tooltip="Delete" (click)="clear(2)"
+                  src="assets/img/trash-bin.gif" class="view_upload" alt="">
+              </ng-container>
+            </div>
+            <div class="col-md-2 pt-1" style="position: relative;">
+              <ng-container *ngIf="show_editable">
+                <!-- <div class="not_click" *ngIf="!show_editable"></div> -->
+                <label for="upload_attach" class="file_upload text-center" style="margin: 0;">
+                  <img style="width: 50px" src="assets/img/doc_upload.gif" (change)="choose_file($event)"
+                    class="doc_upload" draggable="false" alt="">
+                </label>
+                <input multiple type="file" id="upload_attach" #upload_attach style="display: none"
+                  (change)="choose_file($event)">
+                <label class="input-label mt-1" style="margin: 0;">{{upload_filename.length > 0 ?
+                  (upload_filename.length + ' Files are Attached') : 'Upload Files'}}</label>
+                <img *ngIf="upload_filename.length > 0" (click)="view_files()" src="assets/img/eye.png"
+                  class="view_upload" alt="">
+              </ng-container>
+              <ng-container *ngIf="!show_editable">
+                <!-- <div class="not_click"></div> -->
+                <label class="file_upload text-center" style="margin: 0;" (click)="view_files()">
+                  <img style="width: 50px" src="assets/img/doc_download.gif" class="doc_upload" draggable="false"
+                    alt="">
+                </label>
+                <label class="input-label mt-1" style="margin: 0;">{{upload_filename.length}} Files are Attached</label>
+                <img *ngIf="upload_filename.length > 0" (click)="view_files()" src="assets/img/eye.png"
+                  class="view_upload" alt="">
+              </ng-container>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="cards mt-2">
+          <h2 class="head" style="font-size: 19px;">Idea Classification </h2>
+          <div class="row mt-2">
+            <div class="col-md-3 text-center">
+              <label for="applicable0" class="checkbox_label">Localization</label><br>
+              <label for="applicable0" id="change_img0" class="add_int"></label>
+              <input formControlName="islocalize" style="display: none;"
+                (change)="idea_classification($event.target.checked,0)" type="checkbox" id="applicable0">
+            </div>
+            <div class="col-md-3 text-center">
+              <label for="applicable1" class="checkbox_label">Process Optimization</label><br>
+              <label for="applicable1" id="change_img1" class="add_int"></label>
+              <input formControlName="isprocessopt" style="display: none;"
+                (change)="idea_classification($event.target.checked,1)" type="checkbox" id="applicable1">
+            </div>
+            <div class="col-md-3 text-center">
+              <label for="applicable2" class="checkbox_label">New Design Proposal</label><br>
+              <label for="applicable2" id="change_img2" class="add_int"></label>
+              <input formControlName="isnewdesign" style="display: none;"
+                (change)="idea_classification($event.target.checked,2)" type="checkbox" id="applicable2">
+            </div>
+            <div class="col-md-3 text-center">
+              <label for="applicable3" class="checkbox_label">RM Rationalization</label><br>
+              <label for="applicable3" id="change_img3" class="add_int"></label>
+              <input formControlName="isrmration" style="display: none;"
+                (change)="idea_classification($event.target.checked,3)" type="checkbox" id="applicable3">
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col-md-3 text-center">
+              <label for="applicable4" class="checkbox_label">Source Change</label><br>
+              <label for="applicable4" id="change_img4" class="add_int"></label>
+              <input formControlName="ispartstd" style="display: none;"
+                (change)="idea_classification($event.target.checked,4)" type="checkbox" id="applicable4">
+            </div>
+            <div class="col-md-3 text-center">
+              <label for="applicable5" class="checkbox_label">Packaging Optimization</label><br>
+              <label for="applicable5" id="change_img5" class="add_int"></label>
+              <input formControlName="ispackopt" style="display: none;"
+                (change)="idea_classification($event.target.checked,5)" type="checkbox" id="applicable5">
+            </div>
+            <div class="col-md-3 text-center" style="padding: 0;">
+              <label for="applicable6" class="checkbox_label">Transportation Cost Optimization</label><br>
+              <label for="applicable6" id="change_img6" class="add_int"></label>
+              <input formControlName="istranscostopt" style="display: none;"
+                (change)="idea_classification($event.target.checked,6)" type="checkbox" id="applicable6">
+            </div>
+            <div class="col-md-3 text-center">
+              <label for="applicable7" class="checkbox_label">Others</label><br>
+              <label for="applicable7" id="change_img7" class="add_int"></label>
+              <input formControlName="isothers" style="display: none;"
+                (change)="idea_classification($event.target.checked,7)" type="checkbox" id="applicable7">
+              <input *ngIf="vaveForm.value.isothers"
+                [ngClass]="{'is-invalid': this.getdata.isInvalid(this.vaveForm,'others')}" formControlName="others"
+                type="text" autocomplete="off" class="input-field mt-2">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="cards mt-2" *ngIf="(first_copy.length > 1) || (getAll_datas?.currstatus == 3 && usertype == 1)">
+        <h2 class="head" style="font-size: 19px;">Cost Impact Summary</h2>
+        <div class="row mt-2">
+          <div class="col-md-6" style="border-right: 1px solid #ADAEBA;">
+            <h2 class="head">Part Cost</h2>
+            <div class="row mt-2">
+              <div class="col-md-6">
+                <div class="input-container">
+                  <input [value]="first_copy[0].currpartprice" type="text" id="currpartprice" autocomplete="off"
+                    class="input-field" disabled>
+                  <label for="currpartprice" class="input-label">Current Part Price (INR) <span
+                      class="text-danger">*</span></label>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="input-container">
+                  <input [value]="first_copy[0].costreduct" type="text" id="part_price" autocomplete="off"
+                    class="input-field" disabled>
+                  <label for="part_price" class="input-label">Cost Reduction (INR) <span
+                      class="text-danger">*</span></label>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="input-container">
+                  <input [value]="first_copy[0].revisedpartprice" type="text" id="revised" autocomplete="off"
+                    class="input-field" disabled>
+                  <label for="revised" class="input-label">Revised Part Price (INR)</label>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="input-container">
+                  <input [value]="first_copy[0].usageqtyperveh" type="text" id="per_vehicle" autocomplete="off"
+                    class="input-field" disabled>
+                  <label for="per_vehicle" class="input-label">Usage Quantity Per Vehicle (INR) <span
+                      class="text-danger">*</span></label>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="input-container">
+                  <input [value]="first_copy[0].vehsavings" type="text" id="vehicle_saving" autocomplete="off"
+                    class="input-field" disabled>
+                  <label for="vehicle_saving" class="input-label">Vehicle Savings (INR)</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <h2 class="head">Investment Cost</h2>
+            <div class="row mt-2">
+              <div class="col-md-6">
+                <div class="input-container">
+                  <input [value]="first_copy[0].toolcost" type="text" id="tooling_cost" autocomplete="off"
+                    class="input-field" disabled>
+                  <label for="tooling_cost" class="input-label">Tooling Cost (INR) <span
+                      class="text-danger">*</span></label>
+                </div>
+              </div>
+              <div class="col-md-6 pt-3">
+                <div style="position: relative;width: 84px;margin: 0px 54px auto;">
+                  <label class="yes_no" style="left: -21px;">No</label>
+                  <div class="radio-wrapper {{costForm.value.isdevinvolved == null ? '' : 'checked_val'}}"
+                    id="checked_val">
+                    <p class="correct"><i class="ion-checkmark-round"></i>
+                    </p>
+                    <p class="neutral-icon"><i class="ion-record"></i>
+                    </p>
+                    <p class="wrong"><i class="ion-close-round"></i></p>
+                    <input type="radio" *ngIf="first_copy[0].isdevinvolved == 'true'" class="yes" id="radio-yes2"
+                      disabled />
+                    <input type="radio" *ngIf="first_copy[0].isdevinvolved == 'false'" checked class="yes"
+                      id="radio-yes2" disabled />
+
+                    <label for="radio-yes2"></label>
+
+                    <input type="radio" class="neutral" *ngIf="first_copy[0].isdevinvolved == null" disabled
+                      id="radio-neutral2" />
+                    <label for="radio-neutral2" *ngIf="first_copy[0].isdevinvolved == null"></label>
+
+
+                    <input type="radio" *ngIf="first_copy[0].isdevinvolved == 'true'" checked class="no" id="radio-no2"
+                      disabled />
+                    <input type="radio" *ngIf="first_copy[0].isdevinvolved == 'false'" class="no" id="radio-no2"
+                      disabled />
+                    <label for="radio-no2"></label>
+                  </div>
+                  <label class="yes_no" style="right: 17px;">Yes</label>
+                </div>
+                <label for="dev_cost" style="padding-top: 9px;" class="input-label">Development Involved<span
+                    class="text-danger">*</span></label>
+              </div>
+            </div>
+            <div class="row mt-2" *ngIf="first_copy[0].isdevinvolved == 'true'">
+              <div class="col-md-6">
+                <div class="input-container">
+                  <input [value]="first_copy[0].devcost" type="text" id="dev_cost" autocomplete="off"
+                    class="input-field" disabled>
+                  <label for="dev_cost" class="input-label">Development Cost (INR) <span
+                      class="text-danger">*</span></label>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="input-container">
+                  <input [value]="first_copy[0].testcost" type="text" id="testing_cost" autocomplete="off"
+                    class="input-field" disabled>
+                  <label for="testing_cost" class="input-label">Testing Cost (INR) <span
+                      class="text-danger">*</span></label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cards mt-2" [formGroup]="costForm"
+        *ngIf="(first_copy.length > 0) || (usertype == 0 && first_copy.length == 0) || ((usertype == 1) && (getAll_datas?.currstatus == 3 || getAll_datas?.currstatus == 0)) || (usertype == 2 && getAll_datas?.currstatus == 4) || (getAll_datas?.currstatus == 5 || getAll_datas?.currstatus == 4)">
+        <h2 class="head" style="font-size: 19px;">{{first_copy.length > 1 || getAll_datas?.currstatus >= 5 ? 'Final
+          ':''}}Cost Impact Summary</h2>
+        <div class="row mt-2">
+          <div class="col-md-6" style="border-right: 1px solid #ADAEBA;">
+            <h2 class="head">Part Cost</h2>
+            <div class="row mt-2">
+              <div class="col-md-6">
+                <div class="input-container">
+                  <input formControlName="currpartprice"
+                    [ngClass]="{'is-invalid': this.getdata.isInvalid(this.costForm,'currpartprice')}" type="text"
+                    id="currpartprice" (input)="cost_cal()" autocomplete="off" class="input-field" required>
+                  <label for="currpartprice" class="input-label">Current Part Price (INR) <span
+                      class="text-danger">*</span></label>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="input-container">
+                  <input formControlName="costreduct"
+                    [ngClass]="{'is-invalid': this.getdata.isInvalid(this.costForm,'costreduct')}" type="text"
+                    id="part_price" autocomplete="off" (input)="cost_cal()" class="input-field" required>
+                  <label for="part_price" class="input-label">Cost Reduction (INR) <span
+                      class="text-danger">*</span></label>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="input-container">
+                  <input formControlName="revisedpartprice"
+                    [ngClass]="{'is-invalid': this.getdata.isInvalid(this.costForm,'revisedpartprice')}" disabled
+                    type="text" id="revised" autocomplete="off" class="input-field" required>
+                  <label for="revised" class="input-label">Revised Part Price (INR)</label>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="input-container">
+                  <input formControlName="usageqtyperveh"
+                    [ngClass]="{'is-invalid': this.getdata.isInvalid(this.costForm,'usageqtyperveh')}" type="text"
+                    id="per_vehicle" autocomplete="off" (input)="cost_cal()" class="input-field" required>
+                  <label for="per_vehicle" class="input-label">Usage Quantity Per Vehicle (INR) <span
+                      class="text-danger">*</span></label>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="input-container">
+                  <input formControlName="vehsavings"
+                    [ngClass]="{'is-invalid': this.getdata.isInvalid(this.costForm,'vehsavings')}" type="text" disabled
+                    id="vehicle_saving" autocomplete="off" class="input-field" required>
+                  <label for="vehicle_saving" class="input-label">Vehicle Savings (INR)</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <h2 class="head">Investment Cost</h2>
+            <div class="row mt-2">
+              <div class="col-md-6">
+                <div class="input-container">
+                  <input formControlName="toolcost"
+                    [ngClass]="{'is-invalid': this.getdata.isInvalid(this.costForm,'toolcost')}" type="text"
+                    id="tooling_cost" autocomplete="off" class="input-field" required>
+                  <label for="tooling_cost" class="input-label">Tooling Cost (INR) <span
+                      class="text-danger">*</span></label>
+                </div>
+              </div>
+              <div class="col-md-6 pt-3">
+                <div style="position: relative;width: 84px;margin: 0px 54px auto;">
+                  <label class="yes_no" style="left: -21px;">No</label>
+                  <div class="radio-wrapper {{costForm.value.isdevinvolved == null ? '' : 'checked_val'}}"
+                    id="checked_val">
+                    <p class="correct"><i class="ion-checkmark-round"></i>
+                    </p>
+                    <p class="neutral-icon"><i class="ion-record"></i>
+                    </p>
+                    <p class="wrong"><i class="ion-close-round"></i></p>
+                    <input type="radio" [value]="'false'" (change)="toggle($event,false)" class="yes" id="radio-yes"
+                      formControlName="isdevinvolved" />
+
+                    <label for="radio-yes"></label>
+
+                    <input type="radio" class="neutral" [value]="null" disabled id="radio-neutral"
+                      formControlName="isdevinvolved" />
+                    <label for="radio-neutral"></label>
+
+
+                    <input type="radio" [value]="'true'" (change)="toggle($event,true)" class="no" id="radio-no"
+                      formControlName="isdevinvolved" />
+                    <label for="radio-no"></label>
+                  </div>
+                  <label class="yes_no" style="right: 17px;">Yes</label>
+                </div>
+                <label for="dev_cost" style="padding-top: 9px;" class="input-label">Development Involved<span
+                    class="text-danger">*</span></label>
+              </div>
+            </div>
+            <div class="row" *ngIf="costForm.value.isdevinvolved == 'true'">
+              <div class="col-md-6">
+                <div class="input-container">
+                  <input formControlName="devcost"
+                    [ngClass]="{'is-invalid': this.getdata.isInvalid(this.costForm,'devcost')}" type="text"
+                    id="dev_cost" autocomplete="off" class="input-field" required>
+                  <label for="dev_cost" class="input-label">Development Cost (INR) <span
+                      class="text-danger">*</span></label>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="input-container">
+                  <input formControlName="testcost"
+                    [ngClass]="{'is-invalid': this.getdata.isInvalid(this.costForm,'testcost')}" type="text"
+                    id="testing_cost" autocomplete="off" class="input-field" required>
+                  <label for="testing_cost" class="input-label">Testing Cost (INR) <span
+                      class="text-danger">*</span></label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-2" [formGroup]="approve_rejectForm">
+    <div class="col-md-4">
+        <!-- Team 1 -->
+        <ng-container
+        *ngIf="(usertype == 1) && (getAll_datas?.currstatus == 0 || getAll_datas?.currstatus == -102 || getAll_datas?.currstatus == -104 || getAll_datas?.currstatus == -2 || getAll_datas?.currstatus == -3 || getAll_datas?.currstatus == -4 || getAll_datas?.currstatus == -5)">
+        <h2 class="team_head">Team 1</h2>
+        <!-- only for team1 -->
+        <ng-container *ngIf="getAll_datas?.currstatus >= 0 || getAll_datas?.currstatus == -2 || getAll_datas?.currstatus == -3 || getAll_datas?.currstatus == -102">
+          <div class="input-container">
+            <!-- <input type="text" class="input-field" colls="4" autocomplete="off" id="t1name" "
+              (input)="change_team_name($event.target.value,1)" list="t1name_" name="t1name_" #t1nameids
+              [ngClass]="{'is-invalid': this.getdata.isInvalid(this.approve_rejectForm,'t1id')}"> -->
+              <select class="input-field" id="t1name" formControlName="t1name" [ngClass]="{'is-invalid': this.getdata.isInvalid(this.approve_rejectForm,'t1name')}">
+                <option value="null" disabled selected>--Select--</option>
+                <option value="R&D">R&D</option>
+                <option value="LCM">LCM</option>
+                <option value="Packaging Engineering">Packaging Engineering</option>
+              </select>
+            <label for="t1name" class="input-label">Select Team<span class="text-danger">*</span></label>
+            <!-- <datalist id="t1name_">
+              <ng-container *ngFor="let list of team_list">
+                <option value={{list.name}}></option>
+              </ng-container>
+            </datalist> -->
+          </div>
+          <div class="input-container">
+            <input type="text" class="input-field" colls="4" autocomplete="off" id="t1usernameadd"
+              formControlName="t1username" (input)="assign_team1($event.target.value,1)" list="t1usernameadd_"
+              name="t1usernameadd_" #t1usernames
+              [ngClass]="{'is-invalid': this.getdata.isInvalid(this.approve_rejectForm,'t1userid')}">
+            <label for="t1usernameadd" class="input-label">Assign User<span class="text-danger">*</span></label>
+            <datalist id="t1usernameadd_">
+              <ng-container *ngFor="let list of t1user_list ">
+                <option value={{list}}></option>
+              </ng-container>
+            </datalist>
+          </div>
+          <div class="input-container">
+            <input type="text" class="input-field" colls="4" autocomplete="off" id="t1l4nameadd"
+              formControlName="t1l4name" (input)="assign_team1($event.target.value,2)" list="t1l4nameadd_"
+              name="t1l4nameadd_" #t1l4names
+              [ngClass]="{'is-invalid': this.getdata.isInvalid(this.approve_rejectForm,'t1l4id')}">
+            <label for="t1l4nameadd" class="input-label">Assign User L4<span class="text-danger">*</span></label>
+            <datalist id="t1l4nameadd_">
+              <ng-container *ngFor="let list of t1l4_list ">
+                <option value={{list}}></option>
+              </ng-container>
+            </datalist>
+          </div>
+        </ng-container>
+
+        <!-- when reject and resent the team 2 users -->
+        <ng-container *ngIf="getAll_datas?.currstatus == -4 || getAll_datas?.currstatus == -5 || getAll_datas?.currstatus == -104">
+          <div class="input-container">
+            <input type="text" class="input-field" readonly value="{{getAll_datas?.vevaApprovalTeamModel?.t1name}}">
+            <label for="t1l4nameadd" class="input-label">Team 1</label>
+          </div>
+          <div class="input-container">
+            <input type="text" class="input-field" readonly value="{{getAll_datas?.vevaApprovalTeamModel?.t1username}}">
+            <label for="t1l4nameadd" class="input-label">Assign User</label>
+          </div>
+          <div class="input-container">
+            <input type="text" class="input-field" readonly value="{{getAll_datas?.vevaApprovalTeamModel?.t1l4name}}">
+            <label for="t1l4nameadd" class="input-label">Assign User L4</label>
+          </div>
+        </ng-container>
+      </ng-container>
+      
+        <!-- readonly -->
+        <ng-container *ngIf="(usertype == 1) && ((getAll_datas?.currstatus >= 1) || (getAll_datas?.currstatus == -7))">
+          <!-- Team 1 -->
+          <h2 class="team_head">Team 1</h2>
+          <div class="input-container">
+            <input type="text" class="input-field" readonly value="{{getAll_datas?.vevaApprovalTeamModel?.t1name}}">
+            <label for="t1l4nameadd" class="input-label">Team 1</label>
+          </div>
+          <div class="input-container">
+            <input type="text" class="input-field" readonly value="{{getAll_datas?.vevaApprovalTeamModel?.t1username}}">
+            <label for="t1l4nameadd" class="input-label">Assign User</label>
+          </div>
+          <div class="input-container">
+            <input type="text" class="input-field" readonly value="{{getAll_datas?.vevaApprovalTeamModel?.t1l4name}}">
+            <label for="t1l4nameadd" class="input-label">Assign User L4</label>
+          </div>
+          </ng-container>
+    </div>
+    <div class="col-md-4">
+
+      <!-- Buyer Only -->
+      <!-- Team 2 -->
+      <ng-container
+        *ngIf="(usertype == 1) && (getAll_datas?.currstatus == 0 || getAll_datas?.currstatus == -102 || getAll_datas?.currstatus == -104 || getAll_datas?.currstatus == -2 || getAll_datas?.currstatus == -3 || getAll_datas?.currstatus == -4 || getAll_datas?.currstatus == -5)">
+        <h1 class="team_head">Team 2 
+          <input type="checkbox" *ngIf="getAll_datas?.currstatus >= 0 || getAll_datas?.currstatus == -2 || getAll_datas?.currstatus == -3 || getAll_datas?.currstatus == -102" class="cursor" id="ismultilevelteam" (input)="need_team2($event.target.checked)" />
+          <input type="checkbox" disabled *ngIf="getAll_datas?.currstatus == -4 || getAll_datas?.currstatus == -5 || getAll_datas?.currstatus == -104" class="cursor" id="ismultilevelteam" (input)="need_team2($event.target.checked)" />
+          </h1>
+        <ng-container *ngIf="ismultilevelteam == 1">
+          <div class="input-container">
+            <!-- <input type="text" class="input-field" colls="4" autocomplete="off" id="t2name" formControlName="t2name"
+              (input)="change_team_name($event.target.value,2)" list="t2name_" name="t2name_" #t2names
+              [ngClass]="{'is-invalid': this.getdata.isInvalid(this.approve_rejectForm,'t2id')}"> -->
+              <select class="input-field" id="t2name" formControlName="t2name" [ngClass]="{'is-invalid': this.getdata.isInvalid(this.approve_rejectForm,'t2name')}">
+                <option value="null" disabled selected>--Select--</option>
+                <option value="R&D">R&D</option>
+                <option value="LCM">LCM</option>
+                <option value="Packaging Engineering">Packaging Engineering</option>
+              </select>
+            <label for="t2name" class="input-label">Select Team<span class="text-danger">*</span></label>
+            <!-- <datalist id="t2name_">
+              <ng-container *ngFor="let list of team_list">
+                <option value={{list.name}}></option>
+              </ng-container>
+            </datalist> -->
+          </div>
+          <div class="input-container">
+            <input type="text" class="input-field" colls="4" autocomplete="off" id="t2usernameadd"
+              formControlName="t2username" (input)="assign_team2($event.target.value,1)" list="t2usernameadd_"
+              name="t2usernameadd_" #t2usernames
+              [ngClass]="{'is-invalid': this.getdata.isInvalid(this.approve_rejectForm,'t2userid')}">
+            <label for="t2usernameadd" class="input-label">Assign User<span class="text-danger">*</span></label>
+            <datalist id="t2usernameadd_">
+              <ng-container *ngFor="let list of t2user_list ">
+                <option value={{list}}></option>
+              </ng-container>
+            </datalist>
+          </div>
+          <div class="input-container">
+            <input type="text" class="input-field" colls="4" autocomplete="off" id="t2l4name" formControlName="t2l4name"
+              (input)="assign_team2($event.target.value,2)" list="t2l4name_" name="t2l4name_" #t2l4names
+              [ngClass]="{'is-invalid': this.getdata.isInvalid(this.approve_rejectForm,'t2l4id')}">
+            <label for="t2l4name" class="input-label">Assign User L4<span class="text-danger">*</span></label>
+            <datalist id="t2l4name_">
+              <ng-container *ngFor="let list of t2l4_list ">
+                <option value={{list}}></option>
+              </ng-container>
+            </datalist>
+          </div>
+        </ng-container>
+      </ng-container>
+
+    <!-- readonly -->
+      <ng-container *ngIf="(usertype == 1) && ((getAll_datas?.currstatus >= 1) || (getAll_datas?.currstatus == -7))">
+      <!-- Team 2 -->
+      <h1 class="team_head">Team 2
+        <input type="checkbox" class="cursor" *ngIf="getAll_datas?.ismultilevelteam == 1" checked disabled />
+        <input type="checkbox" class="cursor" *ngIf="getAll_datas?.ismultilevelteam == 0" disabled />
+      </h1>
+      <ng-container *ngIf="getAll_datas?.ismultilevelteam == 1">
+        <div class="input-container">
+          <input type="text" class="input-field" readonly value="{{getAll_datas?.vevaApprovalTeamModel?.t2name}}">
+          <label for="t1l4nameadd" class="input-label">Team 2</label>
+        </div>
+        <div class="input-container">
+          <input type="text" class="input-field" readonly value="{{getAll_datas?.vevaApprovalTeamModel?.t2username}}">
+          <label for="t1l4nameadd" class="input-label">Assign User</label>
+        </div>
+        <div class="input-container">
+          <input type="text" class="input-field" readonly value="{{getAll_datas?.vevaApprovalTeamModel?.t2l4name}}">
+          <label for="t1l4nameadd" class="input-label">Assign User L4</label>
+        </div>
+      </ng-container>
+    </ng-container>
+     <!-- Final Cost Buyer Only -->
+    </div>
+    <div class="col-md-4">
+      <div class="row">
+        <div class="col-md-12 text-right" style="height: 31px;">
+          <ng-container *ngIf="status_history_list.length > 0">
+            <label for="remarks" class="input-label">Remarks History</label>
+            <img src="assets/img/history.gif" (click)="show_history()" draggable="false" style="width: 30px;" class="cursor"
+              alt="">
+          </ng-container>
+        </div>
+        <div class="col-md-12">
+          <!-- Show All -->
+      <ng-container *ngIf="getAll_datas?.remarks != null && getAll_datas?.remarks != ''">
+        <textarea disabled [value]="getAll_datas?.remarks" class="input-field" style="height: 110px;"></textarea>
+        <label for="remarks" class="input-label" style="margin-bottom: 14px;">{{getAll_datas?.currstatus >=0 ? 'Approved Remarks' : 'Rejected
+          Remarks'}}</label>
+      </ng-container>
+
+      <!-- All Users Reject and Approve Remarks -->
+      <ng-container *ngIf="tab_type == 2">
+      <ng-container
+        *ngIf="((usertype == 1) && (getAll_datas?.currstatus == 0 || getAll_datas?.currstatus == -102 || getAll_datas?.currstatus == -104 || getAll_datas?.currstatus == -2 || getAll_datas?.currstatus == -3 || getAll_datas?.currstatus == -4 || getAll_datas?.currstatus == -5 || getAll_datas?.currstatus == -7)) || (usertype == 3 && getAll_datas?.currstatus == 1) || (usertype == 3 && getAll_datas?.currstatus == 3) || (usertype == 4 && getAll_datas?.currstatus == 2) || (usertype == 4 && getAll_datas?.currstatus == 4) || (usertype == 2 && getAll_datas?.currstatus == 6)">
+        <textarea formControlName="remark" style="height: 110px;"
+          [ngClass]="{'is-invalid': this.getdata.isInvalid(this.approve_rejectForm,'remark')}" id="remarks"
+          class="input-field" required></textarea>
+        <label for="remarks" class="input-label" style="margin-bottom: 14px;">Remarks<span class="text-danger">*</span></label>
+      </ng-container>
+    </ng-container>
+
+      <ng-container *ngIf="(usertype == 1 && getAll_datas?.currstatus == 5) && (tab_type == 2)">
+        <div class="input-container" style="margin: 0;">
+          <input maxlength="6" pattern="\d*" (keyup)="validate_digits($event)" formControlName="cometid"
+            [ngClass]="{'is-invalid': this.getdata.isInvalid(this.approve_rejectForm,'cometid')}" type="text"
+            id="cometid" autocomplete="off" class="input-field" required>
+          <label for="cometid" class="input-label">Comet ID<span class="text-danger">*</span></label>
+        </div>
+      </ng-container>
+  
+      <ng-container *ngIf="(getAll_datas?.cometid != null && getAll_datas?.cometid != '')">
+      <div class="input-container" style="margin: 0;">
+        <input value="{{getAll_datas?.cometid}}"  type="text" class="input-field" readonly>
+        <label for="cometid" class="input-label">Comet ID</label>
+      </div>
+    </ng-container>
+        <!-- All Users Reject and Approve  -->
+        <ng-container *ngIf="tab_type == 2">
+    <ng-container
+    *ngIf="((usertype == 1) && (getAll_datas?.currstatus == 0 || getAll_datas?.currstatus == -102 || getAll_datas?.currstatus == -104 || getAll_datas?.currstatus == -2 || getAll_datas?.currstatus == -3 || getAll_datas?.currstatus == -4 || getAll_datas?.currstatus == -5 || getAll_datas?.currstatus == -7)) || (usertype == 3 && getAll_datas?.currstatus == 1) || (usertype == 3 && getAll_datas?.currstatus == 3) || (usertype == 4 && getAll_datas?.currstatus == 2) || (usertype == 4 && getAll_datas?.currstatus == 4) || (usertype == 2 && getAll_datas?.currstatus == 6)">
+    <div class="col-md-12 text-right" style="padding: 0;">
+      <button class="new_btn submit_" *ngIf="usertype == 3 && getAll_datas?.currstatus == 1" type="button"
+        (click)="approve_reject(-102)">Re-Send</button>
+      <button class="new_btn submit_" *ngIf="usertype == 3 && getAll_datas?.currstatus == 3" type="button"
+        (click)="approve_reject(-104)">Re-Send</button>
+      <button id="rejected" class="new_btn" type="button" (click)="approve_reject(0)">Reject</button>
+      <button id="approved" class="new_btn" type="button" *ngIf="usertype != 1"
+        (click)="approve_reject(1)">Approve</button>
+      <button id="approved" class="new_btn" type="button" *ngIf="usertype == 1"
+        (click)="validate_buyer_submit()">Approve</button>
+    </div>
+  </ng-container>
+</ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-2" *ngIf="show_submit_btn">
+    <div class="col-md-12 text-right">
+      <button class="new_btn submit_" type="button" (click)="submit()">Submit</button>
+    </div>
+  </div>
+</div>
+
+<!-- save  -->
+<div class="modal fade" id="submit_data" tabindex="-1" role="dialog" aria-labelledby="submit_dataLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-body text-center">
+        <label class="input-label mt-3">Are you sure want to <b style="color: #000;">'Submit'</b>?</label>
+      </div>
+      <div class="modal-footer mt-3" style="border: none;padding: 0px 10px 8px 0">
+        <button type="button" class="new_btn" style="padding: 0 13px;margin: 0 5px 0 0px;"
+          data-dismiss="modal">No</button>
+        <button *ngIf="usertype == 0" type="button" class="new_btn submit_" style="padding: 0 13px;margin: 0 5px 0 0px;"
+          (click)="confirm_submit()">Yes</button>
+        <button *ngIf="usertype != 0" type="button" class="new_btn submit_" style="padding: 0 13px;margin: 0 5px 0 0px;"
+          (click)="costSave(getAll_datas?.id)">Yes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal -->
+<!-- approve reject  -->
+<div class="modal fade" id="sm_approve_reject" tabindex="-1" role="dialog" aria-labelledby="approve_rejectLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-body text-center">
+        <label class="input-label mt-3">Are you sure want to <b
+            [class]="approve_reject_ == 0 ? 'reject' : approve_reject_ == 1 ? 'approve' : 'resent'">'{{approve_reject_
+            == 0 ? 'Reject' : approve_reject_ == 1 ? 'Approve' : 'Re-Send'}}'</b>?</label>
+      </div>
+      <div class="modal-footer mt-3" style="border: none;padding: 0px 10px 8px 0">
+        <button type="button" id="rejected" class="new_btn" style="padding: 0 13px;margin: 0 5px 0 0px;"
+          data-dismiss="modal">No</button>
+        <button type="button" id="approved" class="new_btn" style="padding: 0 13px;margin: 0 5px 0 0px;"
+          (click)="confirm_submit()">Yes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- approve reject  -->
+<div class="modal fade" id="approve_reject" tabindex="-1" role="dialog" aria-labelledby="approve_rejectLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-body text-center">
+        <label class="input-label mt-3">Are you sure want to <b
+            [class]="approve_reject_ == 0 ? 'reject' : approve_reject_ == 1 ? 'approve' : 'resent'">'{{approve_reject_
+            == 0 ? 'Reject' : approve_reject_ == 1 ? 'Approve' : 'Re-Send'}}'</b>?</label>
+      </div>
+      <div class="modal-footer mt-3" style="border: none;padding: 0px 10px 8px 0">
+        <button type="button" id="rejected" class="new_btn" style="padding: 0 13px;margin: 0 5px 0 0px;"
+          data-dismiss="modal">No</button>
+        <button type="button" id="approved" class="new_btn" style="padding: 0 13px;margin: 0 5px 0 0px;"
+          (click)="updateStatus()">Yes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Reject flow approve reject  -->
+<div class="modal fade" id="rejected_tab" tabindex="-1" role="dialog" aria-labelledby="approve_rejectLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-body text-center">
+        <label class="input-label mt-3">Are you sure want to <b class="approve">Approve</b>?</label>
+      </div>
+      <div class="modal-footer mt-3" style="border: none;padding: 0px 10px 8px 0">
+        <button type="button" id="rejected" class="new_btn" style="padding: 0 13px;margin: 0 5px 0 0px;"
+          data-dismiss="modal">No</button>
+        <button type="button" id="approved" class="new_btn" style="padding: 0 13px;margin: 0 5px 0 0px;"
+          (click)="rejected_updateStatus()">Yes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Upload Files  -->
+<div class="modal fade" id="show_upload_file" tabindex="-1" role="dialog" aria-labelledby="show_upload_fileLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document" style="margin: 14px auto;width: 33%;">
+    <div class="modal-content">
+      <div class="modal-body" style="padding-top: 0;">
+        <label class="input-label mt-3" style="font-weight: bold;font-size: 18px;">Upload Files</label>
+        <div class="row mt-2">
+          <div class="col-md-12">
+            <table class="table table-responsive">
+              <tr *ngFor="let data of upload_filename; let i=index">
+                <td style="vertical-align: middle;">{{i+1}})</td>
+                <td style="vertical-align: middle;">
+                  <p tooltip="{{data.filename}}" class="text_overflow">{{data.filename}}</p>
+                </td>
+                <td>
+                  <img tooltip="Download" *ngIf="fileList.length > 0" style="position: relative;top: 0;right: 0;"
+                    (click)="download_files(data)" src="assets/img/doc_download.gif" class="view_upload" alt="">
+                </td>
+                <td>
+                  <img tooltip="Delete" *ngIf="show_editable" style="position: relative;top: 0;right: 0;"
+                    (click)="remove_filtes(data)" src="assets/img/trash-bin.gif" class="view_upload" alt="">
+                </td>
+              </tr>
+              <tr *ngIf="upload_filename.length == 0">
+                <td class="text-center">
+                  <label class="input-label mt-3" style="font-weight: bold;font-size: 18px;">No Files</label>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer mt-3" style="border: none;padding: 0px 10px 8px 0">
+        <button type="button" class="new_btn" style="padding: 0 13px;margin: 0 5px 0 0px;"
+          data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Time Stamp -->
+<div class="modal fade" id="show_history" tabindex="-1" role="dialog" aria-labelledby="show_history_fileLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-body" style="padding-top: 0;">
+        <label class="input-label mt-3" style="font-weight: bold;font-size: 18px;">Remarks History</label>
+        <div class="row mt-1">
+          <div class="col-md-12">
+            <table class="table table-responsive">
+              <thead>
+                <tr>
+                  <th class="text-center">S.No</th>
+                  <th>User Name</th>
+                  <th>Time Stamp</th>
+                  <th>Remarks</th>
+                </tr>
+              </thead>
+              <tr *ngFor="let data of status_history_list; let i=index">
+                <td class="text-center">{{i+1}}</td>
+                <td>{{data.username}}</td>
+                <td>{{data.updatedtimestamp}}</td>
+                <td tooltip="{{data.remarks}}">{{data.remarks}}</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer mt-3" style="border: none;padding: 0px 10px 8px 0">
+        <button type="button" class="new_btn" style="padding: 0 13px;margin: 0 5px 0 0px;"
+          data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Delete File  -->
+<div class="modal fade" id="delete_file" tabindex="-1" role="dialog" aria-labelledby="approve_rejectLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-body text-center">
+        <label class="input-label mt-3">Are you sure want to <b class="reject">Delete</b> the file?</label>
+      </div>
+      <div class="modal-footer mt-3" style="border: none;padding: 0px 10px 8px 0">
+        <button type="button" id="rejected" class="new_btn" style="padding: 0 13px;margin: 0 5px 0 0px;"
+          data-dismiss="modal">No</button>
+        <button type="button" id="approved" class="new_btn" style="padding: 0 13px;margin: 0 5px 0 0px;"
+          (click)="ppt_delete()">Yes</button>
+      </div>
+    </div>
+  </div>
+</div>

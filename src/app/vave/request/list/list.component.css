@@ -1,0 +1,294 @@
+.wrapper {
+  background-color: #f6f8ff;
+  width: 100%;
+  background: transparent;
+  opacity: 1;
+}
+.tabs {
+  text-align: left;
+  position: relative;
+  left: -8px;
+}
+.tabs input {
+  position: absolute;
+  opacity: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.tabs input + label:hover {
+  color: #777;
+}
+.tabs .tabsShadow {
+  width: 100%;
+  padding: 10px;
+  box-shadow: 0 0 25px 0 rgba(0, 0, 0, 0.04);
+  box-sizing: border-box;
+  position: absolute;
+  height: 35px;
+  z-index: 0;
+  top: 0;
+  pointer-events: none;
+}
+
+.content .item {
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s;
+  position: absolute;
+  padding: 10px 20px;
+}
+
+/* #tab1:checked + label,#tab2:checked + label,#tab3:checked + label,#tab4:checked + label,#tab5:checked + label {
+  color: #333333;
+  font-weight: bold;
+} */
+
+.tabs input + label {
+  margin: 8px -4px;
+  width: 20.7%;
+  transition: all 0.3s;
+  text-align: center;
+  border: none;
+  color: #333333;
+  display: inline-flex;
+  -webkit-box-pack: center;
+  padding: 5pt 0pt;
+  vertical-align: middle;
+  justify-content: center;
+  text-transform: uppercase;
+  font-size: 13px;
+  margin-bottom: 0.5px;
+  border-radius: 13px 13px 0px 0px !important;
+  border: 1px solid #3b3d3f;
+  letter-spacing: 0.1em !important;
+  cursor: pointer;
+  border-bottom: 1px solid;
+  position: relative;
+}
+
+.tabs input {
+  position: relative;
+  opacity: 0;
+  margin: auto !important;
+  padding: 0;
+}
+
+#tab1:checked + label::after {
+  content: '';
+    color: #333333 !important;
+    width: 100%;
+    border: 1.4px solid;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+}
+#tab2:checked + label::after {
+content: '';
+    color: #f9d205 !important;
+    width: 100%;
+    border: 1.4px solid;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+}
+#tab3:checked + label::after {
+  content: '';
+  color: green !important;
+  width: 100%;
+  border: 1.4px solid;
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+}
+#tab4:checked + label::after {
+  content: '';
+  color: red !important;
+  width: 100%;
+  border: 1.4px solid;
+  position: absolute;
+  bottom: 0px;
+    left: 0px;
+}
+#tab5:checked + label::after {
+  content: '';
+    color: #026d9d !important;
+    width: 100%;
+    border: 1.4px solid;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+}
+#tab6:checked + label::after {
+  content: '';
+    color: #6d6d6d !important;
+    width: 100%;
+    border: 1.4px solid;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+}
+label.tab.tab-primary {
+  border-radius: 6pt 0 0 6pt;
+}
+label.tab.tab-warning {
+  border-radius: 0 6pt 6pt 0;
+}
+
+.glider {
+  width: 15.1%;
+  padding: 0px 13px;
+  height: 2.5px;
+  border-radius: 0 0 1px 1px;
+  position: absolute;
+  transition: all 0.3s;
+  top: 39px;
+  z-index: 2;
+}
+/* tab end  */
+
+thead {
+  background: #043b54;
+    border: none;
+    color: #fff !important;
+}
+
+th {
+  text-align: center;
+}
+
+td {
+  text-align: center;
+}
+
+button.new_btn {
+  padding: 5px 21px;
+  /* border-radius: 28px 0px 28px 0px; */
+  font-size: 13px;
+  text-transform: uppercase;
+  cursor: pointer;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.14);
+  box-shadow: 0 4px 9px 0 rgba(0, 0, 0, 0.2);
+  -moz-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  border-color: #343a40;
+  margin-top: 7px;
+  border: 1px solid;
+}
+
+button.new_btn:hover {
+  border-color: #343a40;
+  background-color: #343a40;
+  color: #fff;
+}
+
+.submit_ {
+  border: 1px solid #007bff !important;
+  color: #007bff;
+}
+
+.submit_:hover {
+  border-color: #007bff !important;
+  background-color: #007bff !important;
+}
+p.text_overflow {
+  margin: 0;
+  width: 207px;
+  min-width: 100%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+th {
+  white-space: nowrap;
+}
+
+/* pagination styles */
+
+button.btn.btn-default.paginationbtn {
+  padding: 1px 8px;
+}
+
+i.fa.fa-search.searchbtn {
+  padding: 2px 8px;
+  position: relative;
+  top: 0.3px;
+  height: 21px;
+  cursor: pointer;
+  border: 1px solid #043b54;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  background: #043b54;
+  color: #fff;
+}
+
+.sapn_input {
+  font-size: 15px;
+  padding: 0px 2px 0px 9px;
+  position: absolute;
+  right: 48px;
+}
+
+.paginatecontrol {
+  width: 50px;
+  padding: 1px 0px;
+  height: 21px;
+  position: absolute;
+  right: 62px;
+  top: 1px;
+}
+
+button.btn.btn-default.paginationbtn {
+  position: absolute;
+}
+.nodata{
+  padding: 96px;
+    border: 1px solid;
+    font-weight: bold;
+    font-size: 20px;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.14);
+    color: #333333;
+}
+th, td{
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.14);
+}
+.red{
+  color: red;
+}
+.green{
+  color: green;
+}
+.yellow{
+  color: #ffc107;
+}
+.tr{
+ transition: all .3s;
+ cursor: pointer;
+}
+.tr:hover{
+  background: #c2dbe059;
+}
+.filename_textflow{
+  margin: 0;
+  width: 145px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  pointer-events: auto;
+}
+.doc_upload{
+  cursor: pointer;
+  width: 39px
+}
+input#search {
+  height: 31px;
+  margin-top: 9px;
+}
+a.padtop {
+  display: flex;
+  justify-content: center;
+  font-weight: 700;
+}

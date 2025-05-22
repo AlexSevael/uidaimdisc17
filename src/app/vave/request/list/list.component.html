@@ -1,0 +1,162 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-9"></div>
+    <div class="col-md-3 text-right">
+      <button class="new_btn" *ngIf="AuthGuard.session().roleid == 4" type="button" style="margin-top: 15px;" routerLink="../new">+ New</button>
+      <img *ngIf="AuthGuard.session().roleid == 4" style="margin-left: 13px;" (click)="open_upload()" tooltip="Bulk Upload" src="assets/img/doc_upload.gif" class="doc_upload" draggable="false" alt=""> 
+      <img *ngIf="AuthGuard.session().roleid == 1 || AuthGuard.session().vevaAdmin == 1" style="margin-left: 13px;" (click)="dump_download()" tooltip="Dump Download" src="assets/img/doc_download.gif" class="doc_upload" draggable="false" alt=""> 
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-9">
+      <div class="wrapper">
+          <div class="card tabs">
+            <ng-container *ngIf="AuthGuard.session().roleid == 4 || AuthGuard.session().roleid == 1 || AuthGuard.session().vevaAdmin == 1">
+              <input id="tab1" type="radio" class="tab tab-selector" checked="checked" name="tab" />
+              <label for="tab1" class="tab tab-primary" (click)="tabs_(1,2)">Total ({{get_count.total}})</label>
+            </ng-container>
+            <ng-container *ngIf="AuthGuard.session().roleid != 4 && AuthGuard.session().roleid != 1 && AuthGuard.session().vevaAdmin == 0">
+              <input id="tab2" type="radio" class="tab tab-selector" name="tab" />
+              <label for="tab2" class="tab tab-success" (click)="tabs_(2,2)">In-Progress ({{get_count.inprogress}})</label>
+            </ng-container>
+            <ng-container *ngIf="AuthGuard.session().roleid != 4 && AuthGuard.session().roleid != 1 && AuthGuard.session().vevaAdmin == 0">
+              <input id="tab3" type="radio" class="tab tab-selector" name="tab" />
+            <label for="tab3" class="tab tab-default" (click)="tabs_(3,2)">Approved ({{get_count.approved}})</label>
+            </ng-container>
+            <ng-container *ngIf="AuthGuard.session().roleid != 1 && AuthGuard.session().vevaAdmin == 0">
+              <input id="tab4" type="radio" class="tab tab-selector" name="tab" />
+              <label for="tab4" class="tab tab-warning" (click)="tabs_(4,2)">Rejected ({{get_count.rejected}})</label>
+            </ng-container>
+            <ng-container *ngIf="(usertype == 1 || AuthGuard.session().roleid == 4) && (AuthGuard.session().roleid != 1) && (AuthGuard.session().vevaAdmin == 0)">
+              <input id="tab5" type="radio" class="tab tab-selector" name="tab" />
+            <label for="tab5" class="tab tab-warning" (click)="tabs_(5,2)">Accepted ({{get_count.completed}})</label>
+            </ng-container>
+            <!-- <ng-container *ngIf="(AuthGuard.session().roleid == 4) && (AuthGuard.session().vevaAdmin == 0)">
+              <input id="tab6" type="radio" class="tab tab-selector" name="tab" />
+            <label for="tab6" class="tab tab-warning" (click)="tabs_(6,2)">Uploaded ({{get_count.uploaded}})</label>
+            </ng-container> -->
+            <!-- <div class="tabsShadow"></div>
+            <div class="glider"></div> -->
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-3 text-right">
+      <input class="form-control" type="search" autocomplete="off" placeholder="Search.." name="search"
+      style="border-right: none;" #val
+     (input)="search($event.target.value)" id="search">
+    </div>
+  </div>
+  <div class="row mt-1">
+    <div class="col-md-12" style="overflow-x: auto;min-height: 378px;">
+      <table class="table table-responsive">
+        <thead>
+          <tr>
+            <th>S.No</th>
+            <th>VAVE Form ID</th>
+            <th>Created Date</th>
+            <th>Buyer Name</th>
+            <th>Part Number</th>
+            <th>Part Des</th>
+            <th>Child Part Number</th>
+            <th>Child Part Des</th>
+            <th>Supplier Code</th>
+            <th>Supplier Name</th>
+            <th>Applicable Model</th>
+            <th style="padding: 8px 39px;">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngIf="FormID_list.length > 0 || vendorCode_list.length > 0 || currstatus_list.length > 0">
+            <td style="border-left: 1px solid #ddd;"></td>
+            <td>
+              <ng-multiselect-dropdown [placeholder]="'Select'" [data]="FormID_list" id="vave_select"
+              (onDeSelect)="FormID_onItemDeSelect_list($event)" [(ngModel)]="_formID_" (onDeSelectAll)="FormID_onDeSelectAll_list($event)"
+              [settings]="dropdownSettings" (onSelect)="FormID_onItemSelect_list($event)"
+              (onSelectAll)="FormID_onSelectAll_list($event)">
+          </ng-multiselect-dropdown>
+            </td>
+            <td colspan="7"></td>
+            <td>
+              <ng-multiselect-dropdown *ngIf="AuthGuard.session().roleid == 4" [placeholder]="'Select'" [data]="vendorCode_list" id="vave_select"
+              (onDeSelect)="vendorCode_onItemDeSelect_list($event)" [(ngModel)]="_vendorCode_" (onDeSelectAll)="vendorCode_onDeSelectAll_list($event)"
+              [settings]="dropdownSettings" (onSelect)="vendorCode_onItemSelect_list($event)"
+              (onSelectAll)="vendorCode_onSelectAll_list($event)">
+          </ng-multiselect-dropdown>
+            </td>
+            <td></td>
+            <td style="border-right: 1px solid #ddd;">
+              <ng-multiselect-dropdown *ngIf="AuthGuard.session().roleid != 4" [placeholder]="'Select'" [data]="currstatus_list" id="vave_select_status"
+              (onDeSelect)="Status_onItemDeSelect_list($event)" [(ngModel)]="_Status_" (onDeSelectAll)="Status_onDeSelectAll_list($event)"
+              [settings]="dropdownSettings" (onSelect)="Status_onItemSelect_list($event)"
+              (onSelectAll)="Status_onSelectAll_list($event)">
+          </ng-multiselect-dropdown>
+            </td>
+          </tr>
+          <ng-container *ngIf="vave_list_data.length > 0">
+            <ng-container *ngFor="let data of vave_list_data; let i = index">
+              <tr class="tr" (click)="pass_data(data.id)">
+                <td>{{(((currentPage - 1) * 10)+(i+1))}}</td>
+                <td style="white-space: nowrap;">{{data.vevaformid}}</td>
+                <td>{{data.createddate}}</td>
+                <td>{{data.buyername}}</td>
+                <td>{{data.partno}}</td>
+                <td>{{data.partdesc}}</td>
+                <td>{{(data.childpartno) != null ? data.childpartno : '-'}}</td>
+                <td>{{(data.childpartdesc) != null ? data.childpartdesc : '-'}}</td>
+                <td><p tooltip={{data.suppname}} class="text_overflow">{{(data.suppcode) != null ? data.suppcode : '-'}}</p></td>
+                <td>{{(data.suppname) != null ? data.suppname : '-'}}</td>
+                <td>{{(data.appmodel) != null ? data.appmodel : '-'}}</td>
+                <td style="white-space: nowrap;" [class]="check_status(data.currstatus)">{{(data.status) != null ? data.status : '-'}}</td>
+              </tr>
+            </ng-container>
+          </ng-container>
+          <ng-container *ngIf="vave_list_data.length == 0">
+            <tr>
+              <td colspan="12" class="nodata">No Data Available</td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+    </div>
+      <!-- pagination -->
+  <div class="col-md-12 text-right mt-2" *ngIf="page_count>10" style="position: relative;bottom: 14px;">
+    <button style="right: 166px;" [disabled]="currentPage == 1" class="btn btn-default paginationbtn"
+        (click)="paginatePartList('prev')"><i class="fa fa-chevron-left"></i></button>
+
+    <p class="sapn_input">
+        <input id="currentPageInput" class="paginatecontrol" type="text" value="{{currentPage}}">
+        <i class="fa fa-search searchbtn" (click)="searchPage()"></i> of {{totalPages}}
+    </p>
+
+    <button style="top: -1px;right: 2px;" [disabled]="currentPage == totalPages"
+        class="btn btn-default paginationbtn" (click)="paginatePartList('next')"><i
+            class="fa fa-chevron-right"></i></button>
+</div>
+  </div>
+</div>
+
+<!-- Upload Files  -->
+<div class="modal fade" id="show_upload_file" tabindex="-1" role="dialog" aria-labelledby="show_upload_fileLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document" style="margin: 14px auto;width: 25%;">
+    <div class="modal-content">
+      <div class="modal-body" style="padding-top: 0;">
+       <label class="input-label mt-3" style="font-weight: bold;font-size: 18px;">Upload Files</label>
+       <div class="row mt-2">
+        <div class="col-md-12 text-center">
+          <label for="upload_attach" class="file_upload text-center" style="margin: 0;">
+            <img tooltip="Choose File" style="width: 50px" src="assets/img/doc_upload.gif" class="doc_upload" draggable="false" alt=""> 
+          </label>
+              <input accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" type="file" id="upload_attach" #upload_attach style="display: none" (change)="choose_file($event)">
+              <p style="margin: 0;text-align: center;"><a href="assets/excel/VAVE Bulk Upload Template.xlsx" class="padtop" style="cursor:pointer">Download Template &nbsp;
+                <i class="fa fa-cloud-download" download style="font-size: 20px;color: #026d9d;"></i></a></p>
+                <p tooltip="{{upload_filename}}" style="margin: 0;" *ngIf="upload_filename != ''" class="input-label mt-1">{{upload_filename}}</p>
+        </div>
+       </div>
+      </div>
+      <div class="modal-footer mt-3" style="border: none;padding: 0px 10px 8px 0">
+        <button type="button" class="new_btn" style="padding: 0 13px;margin: 0 5px 0 0px;" (click)="clear()">Cancel</button>
+         <button type="button" class="new_btn submit_" style="padding: 0 13px;margin: 0 5px 0 0px;" (click)="file_validation()">Submit</button>
+      </div>
+    </div>
+  </div>
+</div>

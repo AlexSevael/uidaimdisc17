@@ -1,0 +1,39 @@
+/* sidebar */
+i.fa.fa-angle-down.pull-right:before{
+    font-size: 27px;
+}
+i.fa.fa-angle-down.pull-right {
+    font: normal normal normal 14px/0.6 FontAwesome;
+}
+h5.panel-title {
+    font-size: 18px !important;
+}
+.panel-body>.checkbox {
+    line-height: 1.8;
+    padding-left: 9px;
+    margin: 0;
+}
+.filterbytemp{
+    transition: 0.3s;
+}
+.filterbytemp:hover{
+    color: #026d9d;
+    font-weight: bold;
+}
+.top_head{
+    color: #ADADAD;
+    font-size: 18px;
+    line-height: .5;
+    height: 17px;
+    padding: 0px 11px;
+}
+.panel-group{
+    padding: 10px 0 48px 11px;
+    background: #fff !important;
+    border-radius: 9px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    /* border: 1px solid #0c3242; */
+}
+.masters{
+    width: 79%;
+}

@@ -1,0 +1,42 @@
+<!-- sidebar -->
+<div class="container-fluid" style="background-color: #000;position: sticky;
+top: 0%;z-index: 6;">
+    <!-- <div class="row">
+        <div class="col-md-12">
+            <h2 class="top_head">Supplier Health Score Overview</h2>
+        </div>
+    </div> -->
+</div>
+<div class="container-fluid" style="background-color: #fff;">
+    <div class="row">
+        <div class="col-xs-2 pt-2" style="width: 13%;">
+            <div class="panel-group">
+                <div class="panel panel-default">
+                    <div id="collapse2" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            <div class="checkbox">
+                                <a class="filterbytemp activenavleft" routerLinkActive="active" routerLink="request">Requests</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="panel panel-default">
+                    <div id="collapse2" class="panel-collapse collapse in">
+                        <label for="" class="masters">Masters</label>
+                        <div class="panel-body">
+                            <div class="checkbox" style="margin-top: 0;">
+                                <a class="filterbytemp activenavleft" routerLinkActive="active" routerLink="questionnarie">Questionnarie</a>
+                            </div>
+                            <div class="checkbox">
+                                <a class="filterbytemp activenavleft" routerLinkActive="active" routerLink="manage-mail">Manage Mail</a>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+        <div class="col-xs-10" style="padding: 21px 21px 52px 0px;width: 87%;">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>
