@@ -1,0 +1,227 @@
+<!-- aside -->
+<div class="app-aside hidden-xs bg-black" id="item2">
+  <div class="innerhead">
+    <img class="innerpglogo" draggable="false" src="assets/img/DT_2.jpg">
+  <ul style="position: absolute;
+  right: 27px;top: 12px;">
+    <li style="padding: 0 6px;
+    color: #000;" id="liPwd" class="sep">Current Session Timer <b>{{showtime}}</b> mins</li>
+  </ul>
+  <div class="logomenus">
+    <ul>
+      <li class="cursor"><a routerLink="home"><img src="assets/img/home_icon.png" style="height: 20px;" title="Home"></a></li>
+      <li class="sep"><i>|</i></li>
+      <li class="acc-im"><a>
+          <span *ngIf="getmakeapi?.userroleid==1 ">Admin</span>
+          <span *ngIf="getmakeapi?.userroleid==2 ">Business Admin</span>
+          <span *ngIf="getmakeapi?.userroleid!=1 &&  getmakeapi?.userroleid!=2">User</span>
+          : {{getmakeapi?.username}}</a></li>
+      <li class="sep"><i>|</i></li>
+      <li class="cursor"><a id="aChangePwd" routerLinkActive="active" routerLink="changepassword">Change Password</a></li>
+      <li id="liPwd" class="sep"><i>|</i></li>
+      <li class="cursor" (click)="feedback()"><a>Feedback</a></li>
+      <li class="sep"><i>|</i></li>
+      <li>
+        <a title="Logout" (click)="logout()" class="cursor">
+          <img src="assets/img/logout.png" style="height: 17px">
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+  <div class="aside-wrap">
+    <div class="navi-wrap">
+      <!-- nav -->
+      <nav ui-nav class="navi clearfix">
+        <ul class="nav">
+          &nbsp; &nbsp;
+          <li style="visibility: hidden">
+            <select class="form-control" id="bunitsselect" (change)="selectbunits($event)">
+              <ng-container *ngFor="let data of bUnits;let index = index ; ">
+                <ng-container *ngFor="let list of userbuids">
+                  <option *ngIf="list==data.id" value={{data.id}}>{{data.name}}</option>
+                </ng-container>
+              </ng-container>
+            </select>
+          </li>&nbsp;&nbsp;&nbsp;
+          <li>
+            <a id="homepage" routerLinkActive="active" routerLink="home" class="auto">
+              <span class="pull-right text-muted">
+              </span>
+              <i class="fa fa-th-large"></i>
+              <span>&nbsp;&nbsp;&nbsp;Home</span>
+            </a>
+          </li>
+          <li id="outermodule3">
+            <a id="innermodule3" routerLinkActive="active" routerLink="performance" class="auto">
+                <!-- <li id="">
+                    <a id="" routerLinkActive="active" routerLink="performance" class="auto"> -->
+              <span class="pull-right text-muted">
+              </span>
+              <i class="fa fa-bar-chart"></i>
+              <span>&nbsp;&nbsp;&nbsp;Performance</span>
+            </a>
+          </li>
+          <li id="outermodule2">
+              <a id="innermodule2" routerLinkActive="active" routerLink="process" class="auto">
+               
+          <!-- <li id="">
+            <a id="" routerLinkActive="active" routerLink="process" class="auto"> -->
+              <span class="pull-right text-muted">
+              </span>
+              <i class="fa fa-refresh" aria-hidden="true"></i>
+              <span>&nbsp;&nbsp;&nbsp;Process</span>
+            </a>
+          </li>
+         <li id="outermodule5" >
+              <a id="innermodule5" routerLinkActive="active" class="auto"  routerLink="quality" (click)="gotoPackaging()" style="cursor:pointer"> 
+           
+          <!--  <li id="">
+            <a id="" routerLinkActive="active" routerLink="quality" class="auto"> -->
+              <span class="pull-right text-muted">
+              </span>
+              <i _ngcontent-c4="" class="fa fa-cubes"></i>
+              <span>&nbsp;&nbsp;&nbsp;Quality</span>
+            </a>
+          </li>
+          <li id="outermodule1" *ngIf="AuthGuard.session().shortid != 'wiprotest'">
+              <a id="innermodule1" routerLinkActive="active" routerLink="people" class="auto">
+          
+          <!--  <li id="">
+            <a id="" routerLinkActive="active" routerLink="people" class="auto"> -->
+              <span class="pull-right text-muted">
+              </span>
+              <i class="fa fa-user" aria-hidden="true"></i>
+              <span>&nbsp;&nbsp;&nbsp;People</span>
+            </a>
+          </li>
+          <ng-container >
+          <li id="outermodule4">
+            <a id="innermodule4" routerLinkActive="active" routerLink="project" class="auto">
+
+              <!-- <li >
+              <a  routerLinkActive="active" routerLink="escalations" class="auto"> -->
+              <span class="pull-right text-muted">
+              </span>
+              <i class="fa fa-tachometer" aria-hidden="true"></i>
+              <span>&nbsp;&nbsp;&nbsp;Projects</span>
+            </a>
+          </li>
+          </ng-container>
+          <li id="outermodule4">
+            <a id="innermodule4" routerLinkActive="active" routerLink="kys" class="auto">
+
+              <!-- <li >
+              <a  routerLinkActive="active" routerLink="escalations" class="auto"> -->
+              <span class="pull-right text-muted">
+              </span>
+              <i class="fa fa-users" aria-hidden="true"></i>
+              <span>&nbsp;&nbsp;&nbsp;KYS</span>
+            </a>
+          </li>
+          <li>
+            <a routerLink="home" (click)="genIBMSToken()" class="auto " style="cursor:pointer">
+              <span class="pull-right text-muted">
+              </span>
+              <i class="fa fa-dropbox" aria-hidden="true"></i>
+              <span>&nbsp;&nbsp;&nbsp;Delivery</span>
+            </a>
+          </li>
+          <div class="dropdown">
+            <button class="dropbtn"><img src="assets/img/cost-optimization.png" alt="" style="width: 12px;
+              margin: -3px 3px 0 0px;"> Cost</button>
+            <div class="dropdown-content" (click)="payretro()">
+              <a>Payretro</a>
+            </div>
+            <div *ngIf="AuthGuard.session().roleid != 4" class="dropdown-content" (click)="toolcappro()" style="margin-top: 31px;
+    border-top: 1px solid;">
+              <a>ToolCapPro</a>
+            </div>
+          </div>
+          <li *ngIf="getmakeapi?.userroleid==0 || getmakeapi?.userroleid==1 && AuthGuard.session().shortid != 'wiprotest'">
+            <a routerLinkActive="active" routerLink="usermanagement" class="auto">
+              <span class="pull-right text-muted">
+              </span>
+              <img src="assets/img/user_manage.png" alt="" style="width: 12px;
+              margin: -3px 3px 0 0px;">User Management
+            </a>
+          </li>
+          <!-- <li id="outermodule4">
+            <a id="innermodule4" routerLinkActive="active" routerLink="ra-kto" class="auto">
+
+              <span class="pull-right text-muted">
+              </span>
+              <img src="assets/img/pass.png" width="14px">
+              <span>&nbsp;&nbsp;&nbsp;RA-KTO</span>
+            </a>
+          </li> -->
+          <!-- <li class="dropdown pull-right" >
+            <a href="#" class="dropdown-toggle nohov" data-toggle="dropdown"><i class="fa fa-cog pull-right"
+                aria-hidden="true"></i></a>
+            <ul class="dropdown-menu lists">
+              <li><a><i class="fa fa-home" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-envelope"
+                    aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;<i (click)="logout()" class="fa fa-power-off cursor"
+                    aria-hidden="true"></i></a></li>
+              <li class="divider"></li>
+              <li><a href="#">Supplier</a></li>
+              <li><a href="#">Parameter</a></li>
+              <li><a href="#">Unit </a>
+              <li><a href="#">KPI </a>
+              <li><a href="#">Current SRR KPI Logic </a>
+              <li><a href="#">Revamp SRR KPI Logic </a>
+              <li class="divider"></li>
+              <li class="content"><span class="profile">{{getmakeapi?.username |titlecase}}<br>
+                  <a href="#" style="text-decoration: underline">Change password</a></span>
+                <span><img src="assets/img/user.png" alt="." width="40px" class=""></span>
+              </li>
+            </ul>
+          </li> -->
+
+        </ul>
+      </nav>
+      <!-- nav -->
+    </div>
+  </div>
+</div>
+<!-- / aside -->
+ <div class="modal fade" id="feedback" role="dialog" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title" style="text-transform:capitalize;">Feedback</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row" [formGroup]="feedbackForm">
+          <div class="col-md-12">
+            <textarea class="form-control" formControlName="feedback" width="100%" rows="4" placeholder="Enter Feedback...."></textarea>
+            <p class="text-danger text-center" *ngIf="!feedbackForm.controls.feedback.valid && feedbackForm.controls.feedback.touched">Feedback
+                is invalid </p>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-md addnew" (click)="confirmsubmitfeedback()">Submit</button>
+        <button type="button" class="btn btn-md addnew" data-dismiss="modal">Cancel </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- session timeout modal -->
+    <div class="modal-content" *ngIf="show_alert_msg" id="modal_content">
+      <div class="modal-header" style="padding: 5px 8px;border: none;">
+        <img class="alert_img blink" src="assets/img/sessioin_alert.png" alt="">
+        <!-- <h5 class="modal-title" id="session_timeoutModalLabel">S</h5> -->
+        <button type="button" (click)="close_alet_msg()" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true" style="font-size: 17px;">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="padding-top: 8px !important;">
+        <h2 class="session_header">Please save your data, portal will logged off in <b>{{show_alert_secs}}</b></h2>
+      </div>
+      <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div> -->
+    </div>

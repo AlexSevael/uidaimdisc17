@@ -2,26 +2,30 @@ import { Injectable } from '@angular/core';
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
-declare var $:any;
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
+
+declare var $: any;
 
 @Injectable()
 export class WebserviceService {
     token: any;
     userid: any;
-    shortid:any;
+    shortid: any;
     userroleid: any;
     usershortid: any;
     userteamname: any;
-    supplierid:any;
+    supplierid: any;
     useremail: any;
     userbuids: any;
     usermodids = [];
     usercompds = [];
-    filename:any
-    isrgpadmin:any
-    teamname:any
-    pdf_generator:any
-    restrictuserid ={'shortid':'arulnav'};
+    filename: any
+    isrgpadmin: any
+    teamname: any
+    pdf_generator: any
+    restrictuserid = { 'shortid': 'arulnav' };
     constructor(private http: HttpClient, private router: Router) {
         this.token = this.getCookie('disc-cookies');
         if (this.getCheckToken() == null || this.getCheckToken() == "") {
@@ -50,12 +54,12 @@ export class WebserviceService {
         this.supplierid = this.session().supplierid
         this.teamname = this.session().teamname
         console.log(this.session());
-        if(this.session().buids != null){
+        if (this.session().buids != null) {
             this.userbuids = this.session().buids.split(",");
         }
-        
+
     }
-    getCookie(cname:any) {
+    getCookie(cname: any) {
         var name = cname + "=";
         var cArr = window.document.cookie.split(';');
         for (var i = 0; i < cArr.length; i++) {
@@ -67,20 +71,20 @@ export class WebserviceService {
     }
     getToken() {
         this.token = this.getCookie('disc-cookies');
-        if(this.token == null){
+        if (this.token == null) {
             this.router.navigateByUrl('/login');
         }
     }
 
     coursename: any;
-    downfileName:any
-    proName:any
-    partNum:any
+    downfileName: any
+    proName: any
+    partNum: any
     username = 'UserName';
     vendorcode: any;
     year: any;
     month: any;
-    deleteCookie(cname:any) {
+    deleteCookie(cname: any) {
         var d = new Date();
         d.setTime(d.getTime() - (1000 * 60 * 60 * 24));
         var expires = "expires=" + d.toUTCString();
@@ -91,7 +95,7 @@ export class WebserviceService {
     session() {
         // Decode the String
         if (localStorage.getItem("disc-portal-session") != null) {
-            var encodedString:any = localStorage.getItem("disc-portal-session");
+            var encodedString: any = localStorage.getItem("disc-portal-session");
             encodedString = encodedString.substring(6);
             var decodedString = atob(encodedString);
             return JSON.parse(decodedString);
@@ -100,24 +104,53 @@ export class WebserviceService {
     /**
      * method
      */
-    public method(url:any, data:any, method:any):any{
-        if (method === 'post') {
-            const headers = new HttpHeaders({
-                'Authorization': this.token,
-                'Content-Type': 'application/x-www-form-urlencoded'
-              });
-            return this.http.post(url, data, {headers:headers});    
-        }
+    public login_post(url: any, data: any, method?: String): Observable<any> {
+        const headers = new HttpHeaders({
+            'Content-Type': 'application/x-www-form-urlencoded'
+          });
+        
+        return this.http.post(url, data, { observe: 'response', headers:headers })
+        // .pipe(
+        //     map((res:any) => {
+        //         res.headers.get('Authorization');
+        //      return { res };
+        //     })
+        //   )
+    }
+    public post(url: any, data: any, method?: String): Observable<any> {
+        const headers = new HttpHeaders({
+            'Authorization': this.token,
+            'Content-Type': 'application/x-www-form-urlencoded'
+        });
+        return this.http.post(url, data, { headers: headers });
+    }
+    public postjson(url: any, data: any, method?: String): Observable<any> {
+        const headers = new HttpHeaders({
+            'Authorization': this.token,
+            'Content-Type': 'application/json'
+        });
+        return this.http.post(url, data, { headers: headers });
+    }
+    public get(url: any, data: any, method: String): Observable<any> {
+        const headers = new HttpHeaders({
+            'Authorization': this.token,
+            'Content-Type': 'application/json'
+        });
+        return this.http.get(url, { headers: headers });
     }
     /**
      * NoAuth
      */
-    public methodNoAuth(url:any, data:any, method:any):any {
-        if (method === 'postjson') {
-            const headers = new HttpHeaders({
-                'Content-Type': 'application/json'
-              });
-            return this.http.post(url, data, {headers:headers});    
-        }
+    public no_token_post(url: any, data: any, method?: String): Observable<any> {
+        const headers = new HttpHeaders({
+            'Content-Type': 'application/x-www-form-urlencoded'
+        });
+        return this.http.post(url, data, { headers: headers });
+    }
+    public no_token_postjson(url: any, data: any, method: String): Observable<any> {
+        const headers = new HttpHeaders({
+            'Content-Type': 'application/json'
+        });
+        return this.http.post(url, data, { headers: headers });
     }
 }

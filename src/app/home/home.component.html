@@ -1,0 +1,650 @@
+<div class="show_msg_bg" *ngIf="show_restric">
+    <div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div style="display: flex;justify-content: center;align-items: center;height: 100vh;">
+                    <ng-container *ngFor="let data of show_values">
+                    <div style="width: 30%;position: relative;">
+                        <h1 class="timer_class">Timer <b>200</b> Secs</h1>
+                        <div class="card_" [style.background]="show_values[0].colorValue">
+                            <h2 style="margin: 0;font-weight: bold; font-size: 14px;">{{data?.certifitype != null ? data?.certifitype : '-'}} <br>
+                                <p style="margin: 9px;font-size: 12px;padding: 0 25px;font-weight: 100;text-align: left;">{{data?.description != null ? data?.description : '-'}}</p></h2>
+                                    
+                        </div>
+                    </div>
+                </ng-container>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<!-- main -->
+<div class="col container-fluid">
+    <!-- / main header -->
+    <div class="wrapper-md" style="margin-top: 5px;">
+        <div class="col-md-12" *ngIf="AuthGuard.session().roleid == 4">
+            <marquee *ngIf="show_scroll" class="certificate_scroll" onMouseOver="this.stop()" onMouseOut="this.start()" behavior="" direction="" [style.background]="show_values[0].colorValue">
+                <b>{{show_values[0].certifitype}}</b> - <b>{{show_values[0].description}}</b> &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; 
+                <ng-container *ngIf="show_values.length > 1">
+                <b *ngIf="show_values.length > 1">{{show_values[1].certifitype}}</b> - <b>{{show_values[1].description}}</b>
+            </ng-container>
+              </marquee>
+        </div>
+        <!-- stats -->
+        <div class="col-md-7">
+            <div class="col-md-12">
+                <div class="col-md-4 col-lg-3" id="outermodule4" (click)="genIBMSToken()">
+                    <section class="content content--c7">
+                        <a routerLink="home" class="tilter tilter--7" id="innermodule4">
+                            <figure class="tilter__figure">
+                                <img class="tilter__image" src="./assets/img/home1.png" alt="img14">
+                                <div class="">
+                                    <div></div>
+                                </div>
+                                <div class="tilter__deco tilter__deco--overlay"></div>
+                                <figcaption class="tilter__caption">
+                                    <h3 class="tilter__title">Delivery</h3>
+                                </figcaption>
+                                <svg class="tilter__deco tilter__deco--lines" viewBox="0 0 300 415">
+                                    <path d="M20.5,20.5h260v375h-260V20.5z"></path>
+                                </svg>
+                            </figure>
+                        </a>
+                    </section>
+                </div>
+                <div class="col-md-4 col-lg-3" id="outermodule4">
+                    <section class="content content--c7 ">
+                        <a routerLink="home" class="tilter tilter--7" id="innermodule4" (click)="navigate('project')">
+                            <figure class="tilter__figure">
+                                <img class="tilter__image" src="./assets/img/home2.png" alt="img14">
+                                <div class="">
+                                    <div></div>
+                                </div>
+                                <div class="tilter__deco tilter__deco--overlay"></div>
+                                <figcaption class="tilter__caption">
+                                    <h3 class="tilter__title">Projects</h3>
+                                </figcaption>
+                                <svg class="tilter__deco tilter__deco--lines" viewBox="0 0 300 415">
+                                    <path d="M20.5,20.5h260v375h-260V20.5z"></path>
+                                </svg>
+                            </figure>
+                        </a>
+                    </section>
+                </div>
+                <div class="col-md-4 col-lg-3" style=display:none>
+                    <section class="content content--c7">
+                        <a class="tilter tilter--7">
+                            <figure class="tilter__figure">
+                                <img class="tilter__image" src="./assets/img/home3.png" alt="img14">
+                                <div class="">
+                                    <div></div>
+                                </div>
+                                <div class="tilter__deco tilter__deco--overlay"></div>
+                                <figcaption class="tilter__caption">
+                                    <h3 class="tilter__title">People</h3>
+                                </figcaption>
+                                <svg class="tilter__deco tilter__deco--lines" viewBox="0 0 300 415">
+                                    <path d="M20.5,20.5h260v375h-260V20.5z"></path>
+                                </svg>
+                            </figure>
+                        </a>
+                    </section>
+                </div>
+                <div class="col-md-4 col-lg-3" style=display:none>
+                    <section class="content content--c7">
+                        <a class="tilter tilter--7">
+                            <figure class="tilter__figure">
+                                <img class="tilter__image" src="./assets/img/home3.png" alt="img14">
+                                <div class="">
+                                    <div></div>
+                                </div>
+                                <div class="tilter__deco tilter__deco--overlay"></div>
+                                <figcaption class="tilter__caption">
+                                    <h3 class="tilter__title">People</h3>
+                                </figcaption>
+                                <svg class="tilter__deco tilter__deco--lines" viewBox="0 0 300 415">
+                                    <path d="M20.5,20.5h260v375h-260V20.5z"></path>
+                                </svg>
+                            </figure>
+                        </a>
+                    </section>
+                </div>
+                <div class="col-md-4 col-lg-3" id="outermodule1" *ngIf="AuthGuard.session().shortid != 'wiprotest'">
+                    <section class="content content--c7">
+                        <a routerLink="home" class="tilter tilter--7" id="innermodule1" (click)="navigate('people')">
+                            <figure class="tilter__figure">
+                                <img class="tilter__image" src="./assets/img/home3.png" alt="img14">
+                                <div class="">
+                                    <div></div>
+                                </div>
+                                <div class="tilter__deco tilter__deco--overlay"></div>
+                                <figcaption class="tilter__caption">
+                                    <h3 class="tilter__title">People</h3>
+                                </figcaption>
+                                <svg class="tilter__deco tilter__deco--lines" viewBox="0 0 300 415">
+                                    <path d="M20.5,20.5h260v375h-260V20.5z"></path>
+                                </svg>
+                            </figure>
+                        </a>
+                    </section>
+                </div>
+                <!-- <div> -->
+                <div class="col-md-4 col-lg-3 show1" id="outermodule1">
+                    <section class="content content--c7">
+                        <a routerLink="home" class="tilter tilter--7" id="innermodule1" (click)="navigate('kys')">
+                            <figure class="tilter__figure">
+                                <img class="tilter__image" src="./assets/img/KYS_home_page.png" alt="img14">
+                                <div class="">
+                                    <div></div>
+                                </div>
+                                <div class="tilter__deco tilter__deco--overlay"></div>
+                                <figcaption class="tilter__caption">
+                                    <h3 class="tilter__title">KYS</h3>
+                                </figcaption>
+                                <svg class="tilter__deco tilter__deco--lines" viewBox="0 0 300 415">
+                                    <path d="M20.5,20.5h260v375h-260V20.5z"></path>
+                                </svg>
+                            </figure>
+                        </a>
+                    </section>
+                </div>
+                <!-- </div> -->
+                <div class="col-md-4 col-lg-3" id="outermodule3">
+                    <section class="content content--c7">
+
+                        <a routerLink="home" class="tilter tilter--7" id="innermodule3"
+                            (click)="navigate('performance')">
+                            <figure class="tilter__figure">
+                                <img class="tilter__image" src="./assets/img/home4.png" alt="img13">
+                                <div class="">
+                                    <div></div>
+                                </div>
+                                <div class="tilter__deco tilter__deco--overlay"></div>
+                                <figcaption class="tilter__caption">
+                                    <h3 class="tilter__title">Performance</h3>
+                                </figcaption>
+                                <svg class="tilter__deco tilter__deco--lines" viewBox="0 0 300 415">
+                                    <path d="M20.5,20.5h260v375h-260V20.5z"></path>
+                                </svg>
+                            </figure>
+                        </a>
+                    </section>
+                </div>
+                <div class="col-md-4 col-lg-3" id="outermodule5">
+                    <section class="content content--c7">
+                        <a routerLink="home" class="tilter tilter--7" id="innermodule5" (click)="gotoPackaging()">
+                            <figure class="tilter__figure">
+                                <img class="tilter__image" src="./assets/img/home5.png" alt="img14">
+                                <div class="">
+                                    <div></div>
+                                </div>
+                                <div class="tilter__deco tilter__deco--overlay"></div>
+                                <figcaption class="tilter__caption">
+                                    <h3 class="tilter__title">Quality</h3>
+                                </figcaption>
+                                <svg class="tilter__deco tilter__deco--lines" viewBox="0 0 300 415">
+                                    <path d="M20.5,20.5h260v375h-260V20.5z"></path>
+                                </svg>
+                            </figure>
+                        </a>
+                    </section>
+                </div>
+                <div class="col-md-4 col-lg-3" id="outermodule2">
+                    <section class="content content--c7">
+                        <a routerLink="home" class="tilter tilter--7" id="innermodule2" (click)="navigate('process')">
+                            <figure class="tilter__figure">
+                                <img class="tilter__image" src="./assets/img/home6.png" alt="img14">
+                                <div class="">
+                                    <div></div>
+                                </div>
+                                <div class="tilter__deco tilter__deco--overlay"></div>
+                                <figcaption class="tilter__caption">
+                                    <h3 class="tilter__title">Process</h3>
+                                </figcaption>
+                                <svg class="tilter__deco tilter__deco--lines" viewBox="0 0 300 415">
+                                    <path d="M20.5,20.5h260v375h-260V20.5z"></path>
+                                </svg>
+                            </figure>
+                        </a>
+                    </section>
+                </div>
+                <div class="col-md-4 col-lg-3">
+                    <section class="content content--c7">
+                        <a class="tilter tilter--7" (click)="navigate('vave')">
+                            <figure class="tilter__figure">
+                                <img class="tilter__image" src="./assets/img/home7.jpg" alt="img14">
+                                <div class="">
+                                    <div></div>
+                                </div>
+                                <div class="tilter__deco tilter__deco--overlay"></div>
+                                <figcaption class="tilter__caption">
+                                    <h3 class="tilter__title">VAVE</h3>
+                                </figcaption>
+                                <svg class="tilter__deco tilter__deco--lines" viewBox="0 0 300 415">
+                                    <path d="M20.5,20.5h260v375h-260V20.5z"></path>
+                                </svg>
+                            </figure>
+                        </a>
+                    </section>
+                </div>
+            </div>
+            <!-- <div class="col-md-3 show2">
+                <div class="col-md-4" id="outermodule1" style="margin:5% 0% 0% 21%">
+                    <section class="content content--c7">
+                        <a routerLink="home" class="tilter tilter--7" id="innermodule1" (click)="navigate('kys')">
+                            <figure class="tilter__figure">
+                                <img class="tilter__image" src="./assets/img/KYS_home_page.png" alt="img14">
+                                <div class="">
+                                    <div></div>
+                                </div>
+                                <div class="tilter__deco tilter__deco--overlay"></div>
+                                <figcaption class="tilter__caption">
+                                    <h3 class="tilter__title">KYS</h3>
+                                </figcaption>
+                                <svg class="tilter__deco tilter__deco--lines" viewBox="0 0 300 415">
+              <path d="M20.5,20.5h260v375h-260V20.5z"></path>
+            </svg>
+                            </figure>
+                        </a>
+                    </section>
+                </div>
+            </div> -->
+        </div>
+        <div class="col-md-5 vp_message">
+             
+            <div class="message">
+                <!-- <p>
+                    We enable the profitable growth through
+                </p>
+                <ul>
+                    <li>Development of parts and sufficient <b>capacity</b> in the entire supply chain.</li>
+                    <li>Implement <b>innovative</b> supply chain solutions</li>
+                    <li><b>Complexity</b> reduction</li>
+                </ul>
+                <p>
+                    We ensure reliability through
+                </p>
+                <ul>
+                    <li>Meeting material and service <b>quality</b> expectations of our customers</li>
+                    <li><b>Consistent</b> material supplies</li>
+                    <li>Adherence to our <b>processes</b> and improve data quality and systems.</li>
+                </ul>
+                <p>
+                    Our conduct is based on integrity and we strive to
+                </p> -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <ul>
+                            <li>To be Future ready Supply Chain with <b>E2E Transparency</b>, Benchmark <b>Cost</b> and <b>Self Certified Partners</b> driven by <b>One High Performing Team</b></li>
+                            <!-- <li>Evolve into one <b>empowered</b> and collaborative team.</li>
+                            <li>Establish fast, <b>fact and figure based communication</b> for transparency</li> -->
+                        </ul>
+                    </div>
+                    <!-- <div class="col-md-3">
+                        <img src="assets/img/vision.png" alt="" class="vp_img">
+                        <h3 style="text-align: center;font-weight: bold;font-size: 17px;">Vision</h3>
+                    </div> -->
+                </div>
+               
+                <div class="img_bar">
+                    <!-- <img src="assets/img/VP SCM.jpg" alt="" class="vp_img">
+          <br> -->
+                    <b style="text-decoration: underline;">President</b><br>
+                    <small>Chief Procurement & Supply Chain Officer</small>
+                </div>
+            </div>
+            <img *ngIf="new_sos_msg.length == 0 || this.AuthGuard.session().roleid == 4" class="emer_msg" src="assets/img/sos_image.png" alt="" (click)="ope_eme_modal()">
+            <img *ngIf="new_sos_msg.length > 0 && this.AuthGuard.session().roleid != 4" class="emer_msg" src="assets/img/sos_image.gif" alt="" (click)="ope_eme_modal()">
+            <!-- <div class="col-md-12 mt-3" *ngIf="AuthGuard?.session().roleid == 4">
+                <h2 class="head" style="font-size: 18px;">Certification Status</h2>
+                <table id="certifistatus" class="table table-response mt-2">
+                    <thead>
+                      <tr>
+                      <th>Supplier Name</th>
+                      <th>Certification Type</th>
+                      <th>Certification Status</th>
+                      <th>Valid From</th>
+                      <th>Valid To</th>
+                      <th>Deviation Date</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                      <ng-container *ngIf="list_data.length > 0">
+                        <tr *ngFor="let data of list_data; let i=index">
+                          <td tooltip="{{data.supplierName}}" container="body"><p class="overridetext">{{data.supplierName != null && data.supplierName != '' ? data.supplierName : '-'}}</p></td>
+                          <td>{{data.certifitype != null ? data.certifitype : '-'}}</td>
+                          <td>{{data.certifistatus != null ? data.certifistatus : '-'}}</td>
+                          <td>{{data.validfrom != null ? data.validfrom : '-'}}</td>
+                          <td>{{data.validto != null ? data.validto : '-'}}</td>
+                          <td>{{data.deviationdate != null ? data.deviationdate : '-'}}</td>
+                         </tr>
+                      </ng-container>
+                       <tr *ngIf="list_data.length == 0">
+                        <td colspan="6" style="padding: 43px;
+                        text-align: center;
+                        font-size: 17px;">No Data Available</td>
+                       </tr>
+                    </tbody>
+                  </table>
+            </div> -->
+        </div>
+        <div class="col-md-12" style="margin-bottom: 59px;">
+            <!-- <marquee *ngIf="show_scroll" class="certificate_scroll" onMouseOver="this.stop()" onMouseOut="this.start()" behavior="" direction="" [style.background]="show_values[0].colorValue">
+                <b>{{show_values[0].certifitype}}</b> - <b>{{show_values[0].description}}</b> &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; 
+                <ng-container *ngIf="show_values.length > 1">
+                <b *ngIf="show_values.length > 1">{{show_values[1].certifitype}}</b> - <b>{{show_values[1].description}}</b>
+            </ng-container>
+              </marquee> -->
+        </div>
+    </div>
+    <!-- / stats -->
+
+
+</div>
+<!-- / main -->
+
+<!-- SRR Popup -->
+<div class="modal fade" data-keyboard="false" data-backdrop="static" id="srr_popup" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-md srr_popup" role="document">
+        <div class="modal-content">
+            <div class="modal-body" style="padding-top:19px !important;padding: 0;;
+            overflow-y: auto;">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <img src="assets/img/srr_2025.JPG" style="width: 100%;" draggable="false" alt="">
+                    </div>
+                </div>
+            </div>
+            </div>
+            <div class="modal-footer mt-2" style="border: none;padding-top: 0;">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                    style="padding: 0 8px;" (click)="srr_popup_close()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Critical Modal -->
+<div class="modal fade" data-keyboard="false" data-backdrop="static" id="critical_suppliers" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+
+        <!-- Internal popup -->
+        <div class="modal-content" style="border: 4px solid red;" *ngIf="AuthGuard?.session().roleid != 4">
+            <div class="modal-header" style="border: none;background: #43434343;
+        color: #000;
+        padding: 5px 14px;">
+                <h5 class="modal-title" id="exampleModalLongTitle" style="font-size: 18px;font-weight:bold">Top 10 Low
+                    performing suppliers for the month - {{month_obj}}' {{year}}</h5>
+            </div>
+            <div class="modal-body" style="padding-top:19px !important;padding: 0;;
+        overflow-y: auto;">
+                <table class="table table-responsive">
+                    <thead style="background: #043b54;color: #fff;position: sticky;
+             top: -19px;">
+                        <th style="text-align: center;">S.No</th>
+                        <th style="width: 49%;text-align: center;">Supplier Name</th>
+                        <th style="text-align: center;">Supplier Code</th>
+                        <th style="text-align: center;">Score</th>
+                        <th></th>
+                    </thead>
+                    <tbody>
+                        <ng-container *ngFor="let data of srrCritical_list; let i = index">
+                            <tr class="{{((data?.vendorCode != vendorcode) && (AuthGuard.session().roleid == 4)) ? 'addopacity' : ''}}">
+                                <td style="text-align: center;vertical-align: middle;">{{i+1}}</td>
+                                <td style="vertical-align: middle;">{{data?.vendorName != null ? data?.vendorName : '-'}}
+                                </td>
+                                <td style="text-align: center;vertical-align: middle;">{{data?.vendorCode != null ? data?.vendorCode : '-'}}
+                                </td>
+                                <td style="text-align: center;vertical-align: middle;" class="{{((data?.vendorCode != vendorcode) && (AuthGuard.session().roleid == 4)) ? '' : 'score_text'}}">{{data?.score}}
+                                <td style="vertical-align: middle;"><span *ngIf="data?.isrepeated == 1"
+                                        class="{{data?.isrepeated == 1 ? 'blink':'noblink'}} {{((data?.vendorCode != vendorcode) && (AuthGuard.session().roleid == 4)) ? 'img_blur' : ''}}">
+                                        <img style="width: 20px;" src="assets/img/warning1.png" alt="" /></span>
+                                </td>
+                            </tr>
+                        </ng-container>
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer" style="border: none;padding-top: 0;">
+                <h2 class="footer_hint"> <img class="blink" style="width: 20px;margin-top: -5px;" src="assets/img/warning1.png" alt="" /> - Repeated low performing suppliers consecutively for last three months
+                    from the above list</h2>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                    style="padding: 0 8px;" (click)="srr_popup()">Close</button>
+            </div>
+        </div>
+
+        <!-- External popup -->
+        <div class="modal-content" *ngIf="AuthGuard?.session().roleid == 4">
+            <div class="modal-header" style="border: none;background: #43434343;
+        color: #000;
+        padding: 5px 14px;">
+                <h5 class="modal-title" id="exampleModalLongTitle" style="font-size: 18px;font-weight:bold">SRR Rating for <b>{{month_obj}}</b> - {{year}}
+                    <img src="assets/img/information-button.png" alt="" class="info" (click)="yearlyScore_()"></h5>
+            </div>
+            <div class="modal-body" style="padding-top:19px !important;padding: 0;;
+        overflow-y: auto;">
+        <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-responsive" style="border-bottom: 1px double;margin: 0">
+                    <thead style="background: #043b54;color: #fff;position: sticky;
+             top: -19px;">
+                        <th style="text-align: center;">S.No</th>
+                        <th style="width: 49%;text-align: center;">Supplier Name</th>
+                        <th style="text-align: center;">Supplier Code</th>
+                        <th>Status</th>
+                        <th style="text-align: center;">Ranking</th>
+                        <th></th>
+                    </thead>
+                    <tbody>
+                        <ng-container *ngFor="let data of srrCritical_list; let i = index">
+                            <tr class="{{((data?.vendorCode != vendorcode) && (AuthGuard.session().roleid == 4)) ? 'addopacity' : ''}}">
+                                <td style="text-align: center;vertical-align: middle;">{{i+1}}</td>
+                                <td style="vertical-align: middle;">{{data?.vendorName != null ? data?.vendorName : '-'}}
+                                </td>
+                                <td style="text-align: center;vertical-align: middle;">{{data?.vendorCode != null ? data?.vendorCode : '-'}}
+                                </td>
+                                <td style="text-align: center;
+                                vertical-align: middle;">
+                                    <img *ngIf="data?.arrowcolor == 0" src="assets/img/up_arrow.png" alt="" class="arrows">
+                                    <img *ngIf="data?.arrowcolor == 1" src="assets/img/double_arrow.png" alt="" class="arrows">
+                                    <img *ngIf="data?.arrowcolor == 2" src="assets/img/down_arrow.png" alt="" class="arrows">
+                                </td>
+                                <td style="text-align: center;vertical-align: middle;">{{data?.rank != null ? data?.rank : '-'}}
+                                <td style="vertical-align: middle;"><span *ngIf="data?.isrepeated == 1"
+                                        class="{{data?.isrepeated == 1 ? 'blink':'noblink'}} {{((data?.vendorCode != vendorcode) && (AuthGuard.session().roleid == 4)) ? 'img_blur' : ''}}">
+                                        <img style="width: 20px;" src="assets/img/warning1.png" alt="" /></span>
+                                </td>
+                            </tr>
+                        </ng-container>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <h2 class="info_img"><img style="margin: -3px 2px 0 0;width: 20px;height: 17px !important;" src="assets/img/up_arrow.png" alt="" class="arrows">Improvement</h2>
+                    </div>
+                    <div class="col-md-4">
+                        <h2 class="info_img"><img style="margin: -6px 2px 0 0;width: 26px;" src="assets/img/double_arrow.png" alt="" class="arrows">Decrease</h2>
+                    </div>
+                    <div class="col-md-4">
+                        <h2 class="info_img"><img style="margin: -1px 2px 0 0;width: 20px;height: 17px !important;" src="assets/img/down_arrow.png" alt="" class="arrows">No Change</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+            <div class="modal-footer" style="border: none;padding-top: 0;">
+                <h2 class="footer_hint" style="margin-top: 0;"> <img style="width: 20px;margin-top: -5px;" src="assets/img/warning1.png" alt="" /> - Repeated low performing suppliers consecutively for last three months
+                    from the above list</h2>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                    style="padding: 0 8px;" (click)="srr_popup()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Yearly Score -->
+<div class="modal fade" data-keyboard="false" data-backdrop="static" id="yearlyScore" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="border: none;background: #43434343;
+        color: #000;
+        padding: 5px 14px;">
+                <h5 class="modal-title" id="exampleModalLongTitle" style="font-size: 18px;font-weight:bold">Yearly SRR Data Summary</h5>
+            </div>
+            <div class="modal-body" style="padding-top:19px !important;padding: 0;;
+        overflow-y: auto;">
+                <table class="table table-responsive">
+                    <tr>
+                        <th style="text-align: center;">Year</th>
+                        <th style="width: 49%;text-align: center;" *ngFor="let data of monthsForChart">{{data}}</th>
+                    </tr>
+                    <tr>
+                        <th>{{years[0]}}</th>
+                        <ng-container *ngFor="let data of first_yr">
+                            <td><p class="score_val {{data?.colorvalue == 0 ? 'green' : data?.colorvalue == 1 ? 'yellow' : 'red'}}">{{data?.score != null ? data?.score : '-'}}</p></td>
+                        </ng-container>
+                    </tr>
+                    <tr>
+                        <th>{{years[1]}}</th>
+                        <ng-container *ngFor="let data of sec_yr">
+                            <td><p class="score_val {{data?.colorvalue == 0 ? 'green' : data?.colorvalue == 1 ? 'yellow' : 'red'}}">{{data?.score != null ? data?.score : '-'}}</p></td>
+                        </ng-container>
+                    </tr>
+                </table>
+            </div>
+            <div class="modal-footer" style="border: none;padding-top: 0;">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                    style="padding: 0 8px;">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- emergency msg popup-->
+
+<div class="modal fade" data-keyboard="false" data-backdrop="static" id="emer_msg" tabindex="-1" role="dialog" aria-labelledby="emer_msgModalLongTitle"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="border:none">
+            <div class="modal-header" style="border: none;background: #043b54;
+        color: #fff;
+        padding: 5px 14px;">
+                <h5 class="modal-title" id="emer_msgModalLongTitle" style="font-size: 18px;font-weight:bold">{{eme_msg}}
+                     <span (click)="back()" class="back_arrow" *ngIf="!vendor_list">&larr;</span></h5>
+            </div>
+            <div class="modal-body" style="padding-top:19px !important;padding: 0;background-color: #505153;">
+             <div class="container-fluid">
+              <div class="row">
+                <div class="col-md-12">
+                    <ng-container>
+                        <div class="over_all bottom_scroll" style="height: 397px;
+                        overflow-y: auto;
+                        padding:13px 7px;
+                    ">
+                     <ng-container *ngIf="this.AuthGuard.session().roleid == 4">
+                        <h1 class="no_msg_" *ngIf="show_msg.length == 0">No Messages</h1>
+                        <ng-container *ngIf="show_msg.length > 0">
+                        <ng-container *ngFor="let data of show_msg">
+                           <div class="message-orange">
+                                <div class="message-timestamp-left">{{data?.date != null ? data?.date : '-'}}</div>
+                                <p class="message-content">{{data?.message != null ? data?.message : '-'}}</p>
+                                <div class="message-timestamp-right">{{data?.time != null ? data?.time : '-'}}</div>
+                            </div>
+                        </ng-container>
+                    </ng-container>
+                    </ng-container>
+                    <ng-container *ngIf="vendor_list && this.AuthGuard.session().roleid != 4">
+                        <h1 class="no_msg_" *ngIf="show_vendors_list.length == 0">No Messages</h1>
+                        <ng-container *ngIf="show_vendors_list.length > 0">
+                        <ng-container *ngFor="let data of show_vendors_list; let i=index">
+                            <div class="bg_mg" (click)="view_msg(data?.supplierid,this.AuthGuard.session().roleid)" style="cursor: pointer;">
+                                <span class="show_time">{{data?.time != null ? data?.time : '-'}}</span> 
+                                <span class="show_dete">{{data?.date != null ? data?.date : '-'}}</span>
+                                <div class="msg_box">
+                                    <h2>
+                                        {{data?.suppliercode != null ? data?.suppliercode : '-'}} - {{data?.suppliername != null ? data?.suppliername : '-'}} <span *ngIf="data?.unreadCount != 0">{{data?.unreadCount != null ? data?.unreadCount : '-'}}</span>
+                                    </h2>
+                                </div>
+                                </div>
+                        </ng-container>
+                    </ng-container>
+                    </ng-container>
+                    
+                    <ng-container *ngIf="!vendor_list && this.AuthGuard.session().roleid != 4">
+                        <h1 class="no_msg_" *ngIf="show_msg.length == 0">No Messages</h1>
+                        <ng-container *ngIf="show_msg.length > 0">
+                        <ng-container *ngFor="let data of show_msg">
+                            <!-- <span class="show_time">12:12 AM</span>
+                            <span class="show_dete">27-8-2022</span>
+                            <p class="msg_box">
+                                {{data.msg}}
+                            </p> -->
+                            <div class="message-orange {{data?.status}}">
+                                <div class="message-timestamp-left">{{data?.date != null ? data?.date : '-'}}</div>
+                                <p class="message-content">{{data?.message != null ? data?.message : '-'}}</p>
+                                <div class="message-timestamp-right">{{data?.time != null ? data?.time : '-'}}</div>
+                                <i class="icon-remove-circle delete_img" (click)="delete_status(data)" *ngIf="data?.status == 1 && this.AuthGuard.session().roleid != 4"></i>
+
+                            </div>
+                        </ng-container>
+                    </ng-container>
+                    </ng-container>
+                    </div>
+                    </ng-container>
+                    <ng-container *ngIf="this.AuthGuard.session().roleid == 4">
+                        <textarea type="text" id="text_msg_box" class="form-control type_msg_box"></textarea>
+                        <img src="assets/img/send.png" class="send_msg" alt="" (click)="add_sos_msg()">
+                    </ng-container>
+            </div>
+              </div>
+            </div>
+            </div>
+            <div class="modal-footer" style="border: none;background: #505153;
+            padding-top: 13px;">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                    style="padding: 0 8px;" (click)="close()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Certification SRR -->
+<div class="modal fade" data-keyboard="false" data-backdrop="static" id="show_popup_msg" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-body" style="padding-top:19px !important;padding: 0;;
+            overflow-y: auto;">
+            <div class="container-fluid" style="margin-bottom: 12px;">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div style="display: flex;justify-content: center;align-items: center;">
+                            <ng-container *ngFor="let data of show_values">
+                            <div style="width: 50%;">
+                                <div class="card_" [style.background]="show_values[0]?.colorValue">
+                                    <h2 style="margin: 0;font-weight: bold; font-size: 14px;">{{data?.certifitype != null ? data?.certifitype : '-'}} <br>
+                                        <p style="margin: 9px;font-size: 12px;padding: 0 25px;font-weight: 100;text-align: left;">{{data?.description != null ? data?.description : '-'}}</p></h2>
+                                            
+                                </div>
+                            </div>
+                        </ng-container>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+            <div class="modal-footer mt-2" style="border: none;padding-top: 0;">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                    style="padding: 0 8px;">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

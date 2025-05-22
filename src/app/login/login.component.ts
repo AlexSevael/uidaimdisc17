@@ -1,5 +1,5 @@
 import { Component, OnInit, Injectable, ChangeDetectorRef, ViewChild } from '@angular/core';
-import { Router, RouterOutlet } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { WebserviceService } from '../services/webservice.service';
 import { DatatransferService } from '../services/datatransfer.service';
 import { FormBuilder, FormGroup, Validators, FormArray, FormControl, ReactiveFormsModule } from '@angular/forms';
@@ -9,7 +9,7 @@ import { CommonModule } from '@angular/common';
 declare var $:any;
 @Component({
   standalone: true,
-  imports: [CommonModule,RouterOutlet, ReactiveFormsModule],
+  imports: [CommonModule,RouterModule, ReactiveFormsModule],
   providers:[WebserviceService,DatatransferService],
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -112,7 +112,7 @@ export class LoginComponent implements OnInit {
   suppteams: any;
   getallsuppTeams() {
     let reqdata = ""
-    return this.makeapi.method(this.lisesuppteamsapi, reqdata, "post")
+    return this.makeapi.post(this.lisesuppteamsapi, reqdata, "post")
       .subscribe((data:any) => {
         this.suppteams = data;
       });
@@ -120,7 +120,7 @@ export class LoginComponent implements OnInit {
   Designation: any;
   getallsuppDesignation() {
     let reqdata = ""
-    return this.makeapi.method(this.supplierDesignationapi, reqdata, "post")
+    return this.makeapi.post(this.supplierDesignationapi, reqdata, "post")
     .subscribe((data:any) => {
       this.Designation = data;
       });
@@ -154,13 +154,11 @@ export class LoginComponent implements OnInit {
       this.markFormGroupTouched(this.loginForm);
     }
     else {
-      this.spinner.show();
       var invalidMessage = "Invalid Login Credentials"
       let reqdata = 'user=' + this.loginForm.value.shoertId + '&password=' + this.loginForm.value.password
-      return this.makeapi.method(this.verifyuserapi, reqdata, "postlogin")
-        .subscribe((response:any) => {
-          this.spinner.hide();
-          var data = response.json();
+      this.makeapi.login_post(this.verifyuserapi, reqdata,'post')
+        .subscribe((response) => {
+          var data = response.body
           if ((data.status).toLowerCase() == "success" && response.headers.get('access-control-bharatbenz-token') != null) {
             // Create a new Date object for the current time
             const currentTime = new Date();
@@ -210,28 +208,28 @@ export class LoginComponent implements OnInit {
 
             this.makeapi.getuserinfo();
 
-            this.router.navigateByUrl('/dashboard/home');
+            this.router.navigateByUrl('dashboard/home');
 
 
           }
           else if (data.id == 0) {
             this.errormsg = invalidMessage;
             this.router.navigateByUrl('/login');
-            this.getdata.showNotification('bottom', 'right', invalidMessage, "danger");
+            // this.getdata.showNotification('bottom', 'right', invalidMessage, "danger");
           }
           else if (data.id == -1) {
             this.errormsg = invalidMessage;
             this.router.navigateByUrl('/login');
-            this.getdata.showNotification('bottom', 'right', invalidMessage, "danger");
+            // this.getdata.showNotification('bottom', 'right', invalidMessage, "danger");
           }
           else if (data.id == -2) {
             this.errormsg = "You have exceeded number of Failed Attempts.Please reset your Password.";
             this.router.navigateByUrl('/login');
-            this.getdata.showNotification('bottom', 'right', "You have exceeded number of Failed Attempts.Please reset your Password.", "danger");
+            // this.getdata.showNotification('bottom', 'right', "You have exceeded number of Failed Attempts.Please reset your Password.", "danger");
           }
           else {
             this.errormsg = invalidMessage;
-            this.getdata.showNotification('bottom', 'right', invalidMessage, "danger");
+            // this.getdata.showNotification('bottom', 'right', invalidMessage, "danger");
           }
         });
     }
@@ -243,7 +241,7 @@ export class LoginComponent implements OnInit {
     else {
       this.spinner.show();
       let reqdata = "vendorcode=" + this.externalloginForm.value.vendorcode + "&email=" + this.externalloginForm.value.email + "&password=" + this.externalloginForm.value.password;
-      return this.makeapi.method(this.verifySupplieruserapi, reqdata, "postlogin")
+       this.makeapi.no_token_post(this.verifySupplieruserapi, reqdata, "postlogin")
         .subscribe((response:any) => {
           this.spinner.hide();
           var data = response.json();
@@ -333,7 +331,7 @@ export class LoginComponent implements OnInit {
     let reqdata = "id=" + this.captchaId + "&value=" + $("#" + id).val();
     console.log(reqdata);
 
-    this.makeapi.method(verifyCaptchaUrl, reqdata, "post")
+    this.makeapi.post(verifyCaptchaUrl, reqdata, "post")
       .subscribe((response:any) => {
         $("#enteredValue").val("")
         console.log(response);
@@ -351,7 +349,7 @@ export class LoginComponent implements OnInit {
   forgetpass() {
     //call captacha image and assign to captchaImg
     var getCaptchaUrl = this.getdata.appconstant + 'getCaptcha';
-    this.makeapi.method(getCaptchaUrl, "", "get")
+    this.makeapi.get(getCaptchaUrl, "", "get")
       .subscribe((response:any) => {
         this.captchaImg = 'data:image/jpeg;base64,' + response.image;
         console.log(response);
@@ -376,7 +374,7 @@ export class LoginComponent implements OnInit {
     }
     else {
       var reqdata = JSON.stringify(this.forgetpassFormInternal.value)
-      return this.makeapi.methodNoAuth(this.DICVForgetPasswordapi, reqdata, "postjson")
+       this.makeapi.no_token_postjson(this.DICVForgetPasswordapi, reqdata, "postjson")
         .subscribe((data:any) => {
           if (data.status == 'Failure') {
             this.getdata.showNotification('bottom', 'right', data.field + '!!', "danger");
@@ -394,7 +392,7 @@ export class LoginComponent implements OnInit {
     }
     else {
       var reqdata = JSON.stringify(this.forgetpassFormExternal.value)
-      return this.makeapi.method(this.forgotSupplierPasswordapi, reqdata, "postjson")
+      this.makeapi.postjson(this.forgotSupplierPasswordapi, reqdata, "postjson")
         .subscribe((data:any) => {
           if (data.status == 'Failure') {
             this.getdata.showNotification('bottom', 'right', data.field + '!!', "danger");
@@ -452,7 +450,7 @@ export class LoginComponent implements OnInit {
    value = value.trim()
 
     if (this.vendorcodelist.indexOf(value) != -1) {
-      return this.makeapi.method(this.getSupplierapi + value, "", "get")
+       this.makeapi.get(this.getSupplierapi + value, "", "get")
         .subscribe((data:any) => {
           var getpackeditdata = this.newExternaluserForm.value;
           getpackeditdata.supplierid = data.id;
@@ -491,7 +489,7 @@ export class LoginComponent implements OnInit {
       if (value.length > 3) {
         let reqdata = "suppliercode=" + value
         console.log(reqdata);
-        return this.makeapi.method(this.searchSupplierapi, reqdata, "post")
+         this.makeapi.post(this.searchSupplierapi, reqdata, "post")
           .subscribe((data:any) => {
             this.totalvendordata = data;
             for (var i = 0; i < data.length; i++) {
@@ -521,7 +519,7 @@ export class LoginComponent implements OnInit {
       reqdata.firsttimelogin = 1
       delete reqdata.companyname;
       delete reqdata.suppliercode;
-      return this.makeapi.method(this.supplierSignupapi, JSON.stringify(reqdata), "postjson")
+       this.makeapi.postjson(this.supplierSignupapi, JSON.stringify(reqdata), "postjson")
         .subscribe((data:any) => {
           if (data.status == "Success" || data.status == "success") {
             this.deleteCookie('disc-cookies');
@@ -576,7 +574,7 @@ export class LoginComponent implements OnInit {
     this.show_otherfields = false
     //call captacha image and assign to captchaImg
     var getCaptchaUrl = this.getdata.appconstant + 'getCaptcha';
-    this.makeapi.method(getCaptchaUrl, "", "get")
+    this.makeapi.get(getCaptchaUrl, "", "get")
     .subscribe((response:any) => {
       clearInterval(this.timer)
       this.signup_captchaImg = 'data:image/jpeg;base64,'+response.image;
@@ -596,7 +594,7 @@ export class LoginComponent implements OnInit {
     }
     else {
       var verifyCaptchaUrl = this.getdata.appconstant + 'verifyCaptcha';
-      this.makeapi.method(verifyCaptchaUrl, reqdata, "post")
+      this.makeapi.post(verifyCaptchaUrl, reqdata, "post")
         .subscribe((data:any) => {
           if (data.status.toLowerCase() == 'success') {
             this.generate_otp()
@@ -612,7 +610,7 @@ export class LoginComponent implements OnInit {
   generate_otp() {
     let generateMailOtp = this.getdata.appconstant + 'generateMailOtp'
     let reqdata = "email="+this.newExternaluserForm.value.emailid + "&type=2" + "&code=" + this.newExternaluserForm.value.vendorCode;
-    this.makeapi.methodNoAuth(generateMailOtp, reqdata, "post")
+    this.makeapi.no_token_post(generateMailOtp, reqdata, "post")
     .subscribe((data:any) => {
         if(data.status.toLowerCase() == 'success'){
           this.generate_otp_val = false
@@ -671,7 +669,7 @@ export class LoginComponent implements OnInit {
     let value = $("#otp_text").val()
     let reqdata = "email="+this.newExternaluserForm.value.emailid+"&otp="+value;
       if(value != "" && this.newExternaluserForm.controls.emailid.valid){
-       this.makeapi.methodNoAuth(verifyMailOtp, reqdata, "postsignup")
+       this.makeapi.no_token_post(verifyMailOtp, reqdata, "postsignup")
     .subscribe((response:any) => {
       var data = response;
       if(response.headers.get('access-control-bharatbenz-token') != null){
