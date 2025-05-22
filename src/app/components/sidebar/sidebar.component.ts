@@ -24,7 +24,7 @@ export const ROUTES: RouteInfo[] = [
 @Component({
  standalone: true,
   imports: [CommonModule,RouterOutlet, ReactiveFormsModule],
-  providers:[WebserviceService,DatatransferService],
+  providers:[WebserviceService,DatatransferService,AuthGuard],
     selector: 'app-sidebar',
     templateUrl: './sidebar.component.html',
     styleUrls: ['./sidebar.component.css']

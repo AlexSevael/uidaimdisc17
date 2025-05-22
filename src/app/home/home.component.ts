@@ -11,7 +11,7 @@ declare var $:any;
 @Component({
     standalone: true,
     imports: [CommonModule, ReactiveFormsModule,FormsModule],
-    providers:[WebserviceService,DatatransferService],
+    providers:[WebserviceService,DatatransferService,AuthGuard],
     selector: 'app-home',
     templateUrl: './home.component.html',
     styleUrls: ['./home.component.css']

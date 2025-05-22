@@ -67,42 +67,42 @@ export class DatatransferService {
 
 
   // //live-serve
-  Coreappconstant = 'https://www.digitalsupplychain.bharatbenz.com/DICVDISC/core/';
-  appconstantpdp = 'https://www.digitalsupplychain.bharatbenz.com/DaimPDP/pdp/';
-  appconstant = 'https://www.digitalsupplychain.bharatbenz.com/DICVDISC/disc/';
-  appconstantpmp = "https://www.digitalsupplychain.bharatbenz.com/DaimPMP/pmp/";
-  appconstantispr = "https://www.digitalsupplychain.bharatbenz.com/DaimISPR/ispr/";
-  appconstantpackaging = 'https://www.digitalsupplychain.bharatbenz.com/DaimPackaging/pack/';
-  appconstantgp = 'https://www.digitalsupplychain.bharatbenz.com/DaimGatepass/gp/';
-  appconstantrakto = 'https://www.digitalsupplychain.bharatbenz.com/DaimRAKTO/';
-  appconstantkem = 'https://www.digitalsupplychain.bharatbenz.com/DaimKEM/';
-  appconstantkys = 'https://www.digitalsupplychain.bharatbenz.com/DaimKYS/';
-  appconstantIA = 'https://www.digitalsupplychain.bharatbenz.com/DaimIA/ia/';
-  appconstantVAVE = 'https://www.digitalsupplychain.bharatbenz.com/DaimVeva/veva/';
-  appconstantNPP = 'https://www.digitalsupplychain.bharatbenz.com/DaimNPP/npp/';
-  DaimQm = 'https://www.digitalsupplychain.bharatbenz.com/DaimQm/qm/';
-  DaimSuppDirectory = 'https://www.digitalsupplychain.bharatbenz.com/DaimSuppDirectory/'
-  certificationCR = 'https://www.digitalsupplychain.bharatbenz.com/DICVDISC/certifi-status/'
-  globalurl = "https://www.digitalsupplychain.bharatbenz.com/dicvscar/Daimpackaging";
+  // Coreappconstant = 'https://www.digitalsupplychain.bharatbenz.com/DICVDISC/core/';
+  // appconstantpdp = 'https://www.digitalsupplychain.bharatbenz.com/DaimPDP/pdp/';
+  // appconstant = 'https://www.digitalsupplychain.bharatbenz.com/DICVDISC/disc/';
+  // appconstantpmp = "https://www.digitalsupplychain.bharatbenz.com/DaimPMP/pmp/";
+  // appconstantispr = "https://www.digitalsupplychain.bharatbenz.com/DaimISPR/ispr/";
+  // appconstantpackaging = 'https://www.digitalsupplychain.bharatbenz.com/DaimPackaging/pack/';
+  // appconstantgp = 'https://www.digitalsupplychain.bharatbenz.com/DaimGatepass/gp/';
+  // appconstantrakto = 'https://www.digitalsupplychain.bharatbenz.com/DaimRAKTO/';
+  // appconstantkem = 'https://www.digitalsupplychain.bharatbenz.com/DaimKEM/';
+  // appconstantkys = 'https://www.digitalsupplychain.bharatbenz.com/DaimKYS/';
+  // appconstantIA = 'https://www.digitalsupplychain.bharatbenz.com/DaimIA/ia/';
+  // appconstantVAVE = 'https://www.digitalsupplychain.bharatbenz.com/DaimVeva/veva/';
+  // appconstantNPP = 'https://www.digitalsupplychain.bharatbenz.com/DaimNPP/npp/';
+  // DaimQm = 'https://www.digitalsupplychain.bharatbenz.com/DaimQm/qm/';
+  // DaimSuppDirectory = 'https://www.digitalsupplychain.bharatbenz.com/DaimSuppDirectory/'
+  // certificationCR = 'https://www.digitalsupplychain.bharatbenz.com/DICVDISC/certifi-status/'
+  // globalurl = "https://www.digitalsupplychain.bharatbenz.com/dicvscar/Daimpackaging";
 
   // Daimler-UAT-server
-  // Coreappconstant = 'https://www.digitalsupplychain-qa.bharatbenz.com/DICVDISC/core/';
-  // appconstantpdp = 'https://www.digitalsupplychain-qa.bharatbenz.com/DaimPDP/pdp/';
-  // appconstant = 'https://www.digitalsupplychain-qa.bharatbenz.com/DICVDISC/disc/';
-  // appconstantpmp = "https://www.digitalsupplychain-qa.bharatbenz.com/DaimPMP/pmp/";
-  // appconstantispr = "https://www.digitalsupplychain-qa.bharatbenz.com/DaimISPR/ispr/";
-  // appconstantpackaging = 'https://www.digitalsupplychain-qa.bharatbenz.com/DaimPackaging/pack/';
-  // appconstantgp = 'https://www.digitalsupplychain-qa.bharatbenz.com/DaimGatepass/gp/';
-  // appconstantrakto = 'https://www.digitalsupplychain-qa.bharatbenz.com/DaimRAKTO/';
-  // appconstantkem = 'https://www.digitalsupplychain-qa.bharatbenz.com/DaimKEM/';
-  // appconstantkys = 'https://www.digitalsupplychain-qa.bharatbenz.com/DaimKYS/';
-  // appconstantIA = 'https://www.digitalsupplychain-qa.bharatbenz.com/DaimIA/ia/';
-  // appconstantVAVE = 'https://www.digitalsupplychain-qa.bharatbenz.com/DaimVeva/veva/';
-  // appconstantNPP = 'https://www.digitalsupplychain-qa.bharatbenz.com/DaimNPP/npp/';
-  // DaimQm = 'https://www.digitalsupplychain-qa.bharatbenz.com/DaimQm/qm/';
-  // DaimSuppDirectory = 'https://www.digitalsupplychain-qa.bharatbenz.com/DaimSuppDirectory/'
-    // certificationCR = 'https://www.digitalsupplychain-qa.bharatbenz.com/DICVDISC/certifi-status/'
-  // globalurl = "https://www.digitalsupplychain-qa.bharatbenz.com/dicvscar/Daimpackaging";
+  Coreappconstant = 'https://www.digitalsupplychain-qa.bharatbenz.com/DICVDISC/core/';
+  appconstantpdp = 'https://www.digitalsupplychain-qa.bharatbenz.com/DaimPDP/pdp/';
+  appconstant = 'https://www.digitalsupplychain-qa.bharatbenz.com/DICVDISC/disc/';
+  appconstantpmp = "https://www.digitalsupplychain-qa.bharatbenz.com/DaimPMP/pmp/";
+  appconstantispr = "https://www.digitalsupplychain-qa.bharatbenz.com/DaimISPR/ispr/";
+  appconstantpackaging = 'https://www.digitalsupplychain-qa.bharatbenz.com/DaimPackaging/pack/';
+  appconstantgp = 'https://www.digitalsupplychain-qa.bharatbenz.com/DaimGatepass/gp/';
+  appconstantrakto = 'https://www.digitalsupplychain-qa.bharatbenz.com/DaimRAKTO/';
+  appconstantkem = 'https://www.digitalsupplychain-qa.bharatbenz.com/DaimKEM/';
+  appconstantkys = 'https://www.digitalsupplychain-qa.bharatbenz.com/DaimKYS/';
+  appconstantIA = 'https://www.digitalsupplychain-qa.bharatbenz.com/DaimIA/ia/';
+  appconstantVAVE = 'https://www.digitalsupplychain-qa.bharatbenz.com/DaimVeva/veva/';
+  appconstantNPP = 'https://www.digitalsupplychain-qa.bharatbenz.com/DaimNPP/npp/';
+  DaimQm = 'https://www.digitalsupplychain-qa.bharatbenz.com/DaimQm/qm/';
+  DaimSuppDirectory = 'https://www.digitalsupplychain-qa.bharatbenz.com/DaimSuppDirectory/'
+    certificationCR = 'https://www.digitalsupplychain-qa.bharatbenz.com/DICVDISC/certifi-status/'
+  globalurl = "https://www.digitalsupplychain-qa.bharatbenz.com/dicvscar/Daimpackaging";
 
   // Daimler-Test-server
   // Coreappconstant = 'http://53.226.243.161:8080/DICVDISC/core/';
